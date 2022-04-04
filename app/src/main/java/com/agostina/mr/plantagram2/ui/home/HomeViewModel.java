@@ -1,19 +1,31 @@
 package com.agostina.mr.plantagram2.ui.home;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.agostina.mr.plantagram2.model.PlantPost;
+import com.agostina.mr.plantagram2.repository.PlantRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
+    private PlantAdapter plantAdapter;
+    private MutableLiveData<List<PlantPost>>  plantList;
+    private PlantRepository plantRepository;
+
 
     public HomeViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        plantRepository = PlantRepository.getInstance();
+        plantList = new MutableLiveData<>();
+        plantList.setValue(new ArrayList<>());
+
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public ArrayList<PlantPost> getPlants()
+    {
+      return plantRepository.getPlants();
     }
+
 }
