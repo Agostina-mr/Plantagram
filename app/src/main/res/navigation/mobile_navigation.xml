@@ -26,6 +26,7 @@
         android:name="com.agostina.mr.plantagram2.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
     <fragment
         android:id="@+id/takePicture"
         android:name="com.agostina.mr.plantagram2.ui.takepicture.TakePicture"
