@@ -13,4 +13,6 @@
     <string name="likes">likes</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_take_picture">OK</string>
+    <string name="photo_success">Photo has been saved successfully</string>
 </resources>

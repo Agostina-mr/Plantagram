@@ -51,7 +51,10 @@ public class MainActivity extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
 
         binding.appBarMain.floatingActionButton
-                .setOnClickListener(v-> navController.navigate(R.id.takePicture));
+                .setOnClickListener(v->{
+                    Intent intent = new Intent(this, CameraActivity.class);
+                    startActivity(intent);
+                });
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
