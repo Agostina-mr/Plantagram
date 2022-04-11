@@ -10,9 +10,6 @@
         android:name="com.agostina.mr.plantagram2.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_nav_home_to_takePicture"
-            app:destination="@id/takePicture" />
     </fragment>
 
     <fragment
@@ -28,8 +25,13 @@
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment
-        android:id="@+id/takePicture"
-        android:name="com.agostina.mr.plantagram2.ui.takepicture.TakePicture"
-        android:label="fragment_take_picture"
-        tools:layout="@layout/fragment_take_picture" />
+        android:id="@+id/test"
+        android:name="com.agostina.mr.plantagram2.ui.CameraFragment"
+        android:label="test"
+        tools:layout="@layout/fragment_test"/>
+    <fragment
+        android:id="@+id/create_post"
+        android:name="com.agostina.mr.plantagram2.ui.CreatePostFragment"
+        android:label="request"
+        tools:layout="@layout/fragment_create_request"/>
 </navigation>

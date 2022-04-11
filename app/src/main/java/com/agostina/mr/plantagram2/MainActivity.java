@@ -19,6 +19,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -26,6 +27,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.agostina.mr.plantagram2.databinding.ActivityMainBinding;
 
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private NavController navController;
+    private boolean isFabVisible;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,12 +53,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        binding.appBarMain.fab.setVisibility(View.VISIBLE);
+        isFabVisible = true;
 
-        binding.appBarMain.floatingActionButton
+
+        binding.appBarMain.fab
                 .setOnClickListener(v->{
-                    Intent intent = new Intent(this, CameraActivity.class);
-                    startActivity(intent);
+                    if (isFabVisible){
+                        binding.appBarMain.fab.setVisibility(View.INVISIBLE);
+                        navController.navigate(R.id.test);
+                    }
                 });
+
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
@@ -77,10 +87,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        binding.appBarMain.fab.setVisibility(View.VISIBLE);
+        isFabVisible = true;
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
 
 }
 
