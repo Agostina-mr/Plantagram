@@ -4,12 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center">
+
+
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/new_image"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"
-        android:padding="@dimen/material_emphasis_medium"
         />
     <TextView
         android:id="@+id/plan_name_tv"

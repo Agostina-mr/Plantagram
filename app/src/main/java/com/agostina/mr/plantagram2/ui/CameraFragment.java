@@ -19,6 +19,8 @@ import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.databinding.FragmentTestBinding;
@@ -28,6 +30,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Date;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 
@@ -40,19 +43,19 @@ public class CameraFragment extends Fragment
     private PreviewView previewView;
     private Button buttonTakePicture;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentTestBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-
         previewView = root.findViewById(R.id.preview_view);
         buttonTakePicture = root.findViewById(R.id.button_take_picture);
 
         buttonTakePicture.setOnClickListener(v-> {
             try {
-                capturePhoto();
+                capturePhoto(root);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -98,7 +101,7 @@ public class CameraFragment extends Fragment
         cameraProvider.bindToLifecycle((LifecycleOwner) this, cameraSelector, preview, imageCapture);
 
     }
-    private void capturePhoto() throws FileNotFoundException {
+    private void capturePhoto(View view) throws FileNotFoundException {
         File photoDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         if (!photoDir.exists())
             photoDir.mkdir();
@@ -114,8 +117,13 @@ public class CameraFragment extends Fragment
                 this.getExecutor(), new ImageCapture.OnImageSavedCallback() {
                     @Override
                     public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
-                        outputFileResults.toString();
+
+                        CameraFragmentDirections.ActionTestToCreatePost action = CameraFragmentDirections.actionTestToCreatePost();
+                        System.out.println(photoFilePath + "--------------------------------------------------------------");
+                        action.setPath(photoFilePath);
+                        Navigation.findNavController(view).navigate(action);
                         Toast.makeText(getContext(), "Photo successfully saved", Toast.LENGTH_SHORT).show();
+
                     }
 
                     @Override
