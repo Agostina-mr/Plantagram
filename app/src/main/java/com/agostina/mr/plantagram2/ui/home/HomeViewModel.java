@@ -11,7 +11,7 @@ import java.util.List;
 
 public class HomeViewModel extends ViewModel {
 
-    private PlantAdapter plantAdapter;
+
     private MutableLiveData<List<PlantPost>>  plantList;
     private PlantRepository plantRepository;
 
@@ -25,7 +25,7 @@ public class HomeViewModel extends ViewModel {
 
     public ArrayList<PlantPost> getPlants()
     {
-      return plantRepository.getPlants();
+      return plantRepository.getPlantPosts();
     }
 
 }

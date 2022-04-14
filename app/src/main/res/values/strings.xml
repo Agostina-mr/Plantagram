@@ -16,4 +16,5 @@
     <string name="button_take_picture">OK</string>
     <string name="photo_success">Photo has been saved successfully</string>
     <string name="request_identification">Request Identification</string>
+    <string name="cancel_request_button">Cancel</string>
 </resources>

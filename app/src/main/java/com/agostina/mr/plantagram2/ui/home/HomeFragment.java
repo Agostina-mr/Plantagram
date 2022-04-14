@@ -17,8 +17,6 @@ import com.agostina.mr.plantagram2.databinding.FragmentHomeBinding;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    private RecyclerView plantsRecyclerView;
-    private PlantAdapter plantAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -28,10 +26,10 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        plantsRecyclerView = root.findViewById(R.id.recycler_view);
+        RecyclerView plantsRecyclerView = root.findViewById(R.id.recycler_view);
         plantsRecyclerView.hasFixedSize();
         plantsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        plantAdapter = new PlantAdapter(homeViewModel.getPlants());
+        PlantAdapter plantAdapter = new PlantAdapter(homeViewModel.getPlants());
         plantsRecyclerView.setAdapter(plantAdapter);
 
 

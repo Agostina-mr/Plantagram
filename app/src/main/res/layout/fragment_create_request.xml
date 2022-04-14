@@ -12,18 +12,21 @@
         android:layout_height="0dp"
         android:layout_weight="5"
         />
+
     <TextView
-        android:id="@+id/plan_name_tv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
-    <TextView
-        android:id="@+id/plant_description_tv"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:id="@+id/plant_name"/>
+   <Button
+       android:id="@+id/cancel_b"
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:layout_weight="1"
+       android:text="@string/cancel_request_button"
+       />
     <Button
-        android:id="@+id/request_b"
+        android:id="@+id/approve_b"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

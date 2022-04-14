@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/test"
-        android:name="com.agostina.mr.plantagram2.ui.CameraFragment"
+        android:name="com.agostina.mr.plantagram2.ui.request.CameraFragment"
         android:label="test"
         tools:layout="@layout/fragment_test">
         <action
@@ -35,12 +35,15 @@
     </fragment>
     <fragment
         android:id="@+id/create_post"
-        android:name="com.agostina.mr.plantagram2.ui.CreateRequestFragment"
+        android:name="com.agostina.mr.plantagram2.ui.request.CreateRequestFragment"
         android:label="request"
         tools:layout="@layout/fragment_create_request">
         <argument
             android:name="path"
             app:argType="string"
             android:defaultValue="default" />
+        <action
+            android:id="@+id/action_create_post_to_test"
+            app:destination="@id/test" />
     </fragment>
 </navigation>

@@ -1,6 +1,8 @@
 package com.agostina.mr.plantagram2;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -33,6 +35,7 @@ import com.agostina.mr.plantagram2.databinding.ActivityMainBinding;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.annotation.Target;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -44,11 +47,13 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private NavController navController;
     private boolean isFabVisible;
+    private static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        MainActivity.context = getApplicationContext();
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
@@ -93,5 +98,8 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    public static Context getContext(){
+        return MainActivity.getContext();
+    }
 }
 

@@ -1,7 +1,8 @@
-package com.agostina.mr.plantagram2.ui;
+package com.agostina.mr.plantagram2.ui.request;
 
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.FileUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,10 +30,14 @@ import com.google.common.util.concurrent.ListenableFuture;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 
 public class CameraFragment extends Fragment
@@ -119,11 +124,16 @@ public class CameraFragment extends Fragment
                     public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
 
                         CameraFragmentDirections.ActionTestToCreatePost action = CameraFragmentDirections.actionTestToCreatePost();
-                        System.out.println(photoFilePath + "--------------------------------------------------------------");
                         action.setPath(photoFilePath);
+
+
                         Navigation.findNavController(view).navigate(action);
                         Toast.makeText(getContext(), "Photo successfully saved", Toast.LENGTH_SHORT).show();
-
+                        try {
+                            photoFile.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
