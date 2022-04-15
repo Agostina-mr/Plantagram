@@ -35,7 +35,6 @@ public class CreateRequestFragment extends Fragment {
     private CreateRequestViewModel viewModel;
     private String path;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,17 +53,14 @@ public class CreateRequestFragment extends Fragment {
 
         approveRequest.setOnClickListener(v->{
             ///create the parts for post request
-
-            viewModel.plantIdentification(path);
+            Uri uri = Uri.parse(path);
+            viewModel.plantIdentification(uri);
             TextView plantName = root.findViewById(R.id.name);
             viewModel.getIdentifiedPlant().observe((LifecycleOwner) this.requireContext(), plant -> {
-               // plantName.setText(plant.getSugestions().getPlant_name());
+               // plantName.setText(plant.getSuggestions().getPlant_name());
             });
 
         });
-        //getting the picture path from previous fragment and displaying
-
-
         return root;
     }
 }

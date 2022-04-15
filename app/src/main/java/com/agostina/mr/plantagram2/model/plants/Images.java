@@ -1,4 +1,4 @@
-package com.agostina.mr.plantagram2.model;
+package com.agostina.mr.plantagram2.model.plants;
 
 public class Images {
     private String file_name;

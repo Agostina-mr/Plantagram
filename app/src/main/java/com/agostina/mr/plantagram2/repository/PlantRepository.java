@@ -1,48 +1,30 @@
 package com.agostina.mr.plantagram2.repository;
 
-import android.content.Context;
 
-
+import android.net.Uri;
 import android.os.StrictMode;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.agostina.mr.plantagram2.model.Images;
-import com.agostina.mr.plantagram2.model.ImagesResponse;
-import com.agostina.mr.plantagram2.model.Plant;
-import com.agostina.mr.plantagram2.model.PlantPost;
-import com.agostina.mr.plantagram2.model.PlantResponse;
+import com.agostina.mr.plantagram2.model.plants.ImagesResponse;
+import com.agostina.mr.plantagram2.model.plants.Plant;
+import com.agostina.mr.plantagram2.model.plants.PlantPost;
 import com.agostina.mr.plantagram2.network.PlantIdApi;
 import com.agostina.mr.plantagram2.network.ServiceGenerator;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
-
-
-import org.json.JSONObject;
-
-
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Base64;
 
-
-import org.json.JSONArray;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Multipart;
 import retrofit2.internal.EverythingIsNonNull;
 
 public class PlantRepository {
@@ -50,7 +32,6 @@ public class PlantRepository {
     private static PlantRepository instance;
     private UserRepository userRepository;
     private final MutableLiveData<Plant> identifiedPlant;
-
 
     private PlantRepository() {
         identifiedPlant = new MutableLiveData<>();
@@ -62,7 +43,6 @@ public class PlantRepository {
                 .build());
 
     }
-
     public static synchronized PlantRepository getInstance() {
         if (instance == null) {
             instance = new PlantRepository();
@@ -78,53 +58,49 @@ public class PlantRepository {
         return plantPosts;
     }
 
-
-
-    public void plantIdentification(String photoPath) throws Exception {
+    public void plantIdentification(Uri photoPath) throws Exception {
+        System.out.println(photoPath);
         //access Retrofit service generator
         PlantIdApi plantIdApi = ServiceGenerator.getPlantApi();
         //My api key
         String apiKey = "DUTfIkBzHladcugpM3x1b7wqGM7foXH9BxTTOIyvqAr1Rs2M0P";
         // get image from local file
-        String[] flowers = new String[]{photoPath};
+        String[] flowers = new String[]{String.valueOf(photoPath)};
 
-        JSONObject data = new JSONObject();
+        JsonObject data = new JsonObject();
        // data.put("id", null);
-        JSONArray images = new JSONArray();
+        JsonArray images = new JsonArray();
         for (String filename : flowers) {
             String fileData = base64EncodeFromFile(filename);
-            images.put(fileData);
+            images.add(fileData);
         }
-        data.put("images", images);
+        data.add("images", images);
         System.out.println(data);
 
-        /*Call<ImagesResponse> plantResponseCall = plantIdApi.getPlantIdentification(apiKey, data);
+        Call<ImagesResponse> plantResponseCall = plantIdApi.getPlantIdentification(apiKey, data);
          plantResponseCall.enqueue(new Callback<ImagesResponse>() {
             @EverythingIsNonNull
             @Override
             public void onResponse(@NonNull Call<ImagesResponse> call, Response<ImagesResponse> response) {
-                try {
-                    System.out.println("On response code: " + response.code() + response.errorBody().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                    System.out.println("On response code: " + response.code());
             }
             @EverythingIsNonNull
             @Override
             public void onFailure(Call<ImagesResponse> call, Throwable t) {
                 System.out.println("--------Onfailure---------" + t.getMessage());
             }
-        });*/
+        });
     }
     private static String base64EncodeFromFile(String fileString) throws Exception {
         File file = new File(fileString);
-        FileInputStream fis = new FileInputStream(file);
-        byte[] bytes = new byte[(int) file.length()];
-        DataInputStream dataInputStream = new DataInputStream(fis);
-        dataInputStream.readFully(bytes);
-        String res = Base64.getEncoder().encodeToString(bytes);
-        fis.close();
-        return res;
+        try {
+            byte[] fileContent = Files.readAllBytes(file.toPath());
+            String encoded = Base64.getEncoder().encodeToString(fileContent);
+            System.out.println("ENCODED------>" + encoded);
+            return encoded;
+        } catch (IOException e) {
+            throw new IllegalStateException("could not read file " + file, e);
+        }
     }
     public LiveData<Plant> getIdentifiedPlant() {
         return identifiedPlant;

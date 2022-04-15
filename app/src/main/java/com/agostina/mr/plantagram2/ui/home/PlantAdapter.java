@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.agostina.mr.plantagram2.R;
-import com.agostina.mr.plantagram2.model.PlantPost;
+import com.agostina.mr.plantagram2.model.plants.PlantPost;
 
 import java.util.ArrayList;
 

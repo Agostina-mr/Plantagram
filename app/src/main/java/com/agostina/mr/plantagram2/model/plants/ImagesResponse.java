@@ -1,9 +1,7 @@
-package com.agostina.mr.plantagram2.model;
+package com.agostina.mr.plantagram2.model.plants;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
 
 public class ImagesResponse {
     @SerializedName("file_name")

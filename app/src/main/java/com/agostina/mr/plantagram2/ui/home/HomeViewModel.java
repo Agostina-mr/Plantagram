@@ -3,7 +3,7 @@ package com.agostina.mr.plantagram2.ui.home;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.agostina.mr.plantagram2.model.PlantPost;
+import com.agostina.mr.plantagram2.model.plants.PlantPost;
 import com.agostina.mr.plantagram2.repository.PlantRepository;
 
 import java.util.ArrayList;

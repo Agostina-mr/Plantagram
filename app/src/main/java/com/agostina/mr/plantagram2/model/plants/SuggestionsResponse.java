@@ -1,4 +1,4 @@
-package com.agostina.mr.plantagram2.model;
+package com.agostina.mr.plantagram2.model.plants;
 
 import java.util.ArrayList;
 

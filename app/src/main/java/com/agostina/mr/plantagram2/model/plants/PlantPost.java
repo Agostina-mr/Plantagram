@@ -1,6 +1,6 @@
-package com.agostina.mr.plantagram2.model;
+package com.agostina.mr.plantagram2.model.plants;
 
-import android.media.metrics.PlaybackMetrics;
+import com.agostina.mr.plantagram2.model.User;
 
 public class PlantPost {
   private Plant plant;
