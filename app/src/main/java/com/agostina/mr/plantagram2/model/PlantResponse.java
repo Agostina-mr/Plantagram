@@ -2,40 +2,26 @@ package com.agostina.mr.plantagram2.model;
 
 import android.provider.MediaStore;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
 public class PlantResponse {
     @SerializedName("id")
+    @Expose
     private int id;
     @SerializedName("images")
-    private ArrayList<Images> images;
-    /*private ArrayList<Suggestions> suggestions;
-    private ArrayList<Plant> Response;*/
+    @Expose
+    private ArrayList<ImagesResponse> images;
 
-  /*  public int getId() {
-        return id;
-    }*/
+    public PlantResponse() { }
 
-    public ArrayList<Images> getImages() {
+    public ArrayList<ImagesResponse> getImages() {
         return images;
     }
-
     public int getId() {
         return id;
     }
 
-    /*
-
-    public ArrayList<Suggestions> getSuggestions() {
-        return suggestions;
-    }
-
-    public ArrayList<Plant> getPlants() {
-        return Response;
-    }
-    public Plant getPlant() {
-        return new Plant(id, suggestions);
-    }*/
 }

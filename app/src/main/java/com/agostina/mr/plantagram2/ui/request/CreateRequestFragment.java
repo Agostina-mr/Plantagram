@@ -55,7 +55,7 @@ public class CreateRequestFragment extends Fragment {
         approveRequest.setOnClickListener(v->{
             ///create the parts for post request
 
-            viewModel.plantIdentification(getActivity(),path);
+            viewModel.plantIdentification(path);
             TextView plantName = root.findViewById(R.id.name);
             viewModel.getIdentifiedPlant().observe((LifecycleOwner) this.requireContext(), plant -> {
                // plantName.setText(plant.getSugestions().getPlant_name());

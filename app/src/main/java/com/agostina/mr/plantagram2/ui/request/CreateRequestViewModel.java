@@ -15,16 +15,13 @@ import java.util.ArrayList;
 public class CreateRequestViewModel extends ViewModel {
     private PlantRepository plantRepository;
 
-
-
-
     public CreateRequestViewModel() {
         this.plantRepository = PlantRepository.getInstance();
     }
 
-     public void plantIdentification(Context context, String photoPath) {
+     public void plantIdentification(String photoPath) {
         try {
-            plantRepository.plantIdentification(context, photoPath);
+            plantRepository.plantIdentification(photoPath);
         } catch (Exception e) {
             e.printStackTrace();
         }

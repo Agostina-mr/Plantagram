@@ -90,6 +90,8 @@ dependencies {
 //java rx call adapter factory
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
 
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+
 
 
 

@@ -23,6 +23,7 @@ import com.agostina.mr.plantagram2.network.ServiceGenerator;
 import org.json.JSONObject;
 
 
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -37,6 +38,7 @@ import org.json.JSONArray;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -78,58 +80,52 @@ public class PlantRepository {
 
 
 
-    public void plantIdentification(Context context, String plantPhoto) throws Exception {
-        PlantIdApi plantIdApi = ServiceGenerator.getPlantIdApi();
-        System.out.println("photo path ---->" + plantPhoto);
+    public void plantIdentification(String photoPath) throws Exception {
+        //access Retrofit service generator
+        PlantIdApi plantIdApi = ServiceGenerator.getPlantApi();
+        //My api key
         String apiKey = "DUTfIkBzHladcugpM3x1b7wqGM7foXH9BxTTOIyvqAr1Rs2M0P";
-        String userName = "client";
-        // read image from local file system and encode
-        String[] flowers = new String[]{plantPhoto};
+        // get image from local file
+        String[] flowers = new String[]{photoPath};
+
         JSONObject data = new JSONObject();
-        //data.put("api_key", apiKey);
-        // add images
+       // data.put("id", null);
         JSONArray images = new JSONArray();
         for (String filename : flowers) {
             String fileData = base64EncodeFromFile(filename);
             images.put(fileData);
         }
         data.put("images", images);
-        //create part
-        String imagesString = images.toString();
-        RequestBody stringBody =
-                RequestBody.create(okhttp3.MultipartBody.FORM, imagesString);
-        Call<PlantResponse> plantResponseCall = plantIdApi.getPlantIdentification(stringBody);
-         plantResponseCall.enqueue(new Callback<PlantResponse>() {
+        System.out.println(data);
+
+        /*Call<ImagesResponse> plantResponseCall = plantIdApi.getPlantIdentification(apiKey, data);
+         plantResponseCall.enqueue(new Callback<ImagesResponse>() {
             @EverythingIsNonNull
             @Override
-            public void onResponse(@NonNull Call<PlantResponse> call, Response<PlantResponse> response) {
+            public void onResponse(@NonNull Call<ImagesResponse> call, Response<ImagesResponse> response) {
                 try {
                     System.out.println("On response code: " + response.code() + response.errorBody().string());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
             @EverythingIsNonNull
             @Override
-            public void onFailure(Call<PlantResponse> call, Throwable t) {
-                Log.i("Retrofit", "Something went wrong :(" + t.getMessage());
+            public void onFailure(Call<ImagesResponse> call, Throwable t) {
                 System.out.println("--------Onfailure---------" + t.getMessage());
             }
-        });
-
+        });*/
     }
-
     private static String base64EncodeFromFile(String fileString) throws Exception {
         File file = new File(fileString);
         FileInputStream fis = new FileInputStream(file);
-        byte[] bytes = Files.readAllBytes(Paths.get(file.getPath()));
+        byte[] bytes = new byte[(int) file.length()];
+        DataInputStream dataInputStream = new DataInputStream(fis);
+        dataInputStream.readFully(bytes);
         String res = Base64.getEncoder().encodeToString(bytes);
         fis.close();
         return res;
     }
-
-
     public LiveData<Plant> getIdentifiedPlant() {
         return identifiedPlant;
     }
