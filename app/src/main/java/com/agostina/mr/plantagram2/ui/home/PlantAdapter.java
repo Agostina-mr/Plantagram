@@ -11,16 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.agostina.mr.plantagram2.R;
+import com.agostina.mr.plantagram2.model.plants.Plant;
 
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> {
-    private ArrayList<PlantPost> plants;
+    private ArrayList<Plant> plants;
     private OnClickListener onClickListener;
 
-    public PlantAdapter(ArrayList<PlantPost> plants) {
+    public PlantAdapter(ArrayList<Plant> plants) {
         this.plants = plants;
     }
 
@@ -34,10 +35,10 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.name.setText(plants.get(position).getUser().getUserName());
+      //  holder.name.setText(plants.get(position).getUser().getUserName());
         //holder.description.setText(plants.get(position).getPlant().getSugestions().getPlant_name());
         //holder.picture.setImageResource(plants.get(position).getPlant().);
-        holder.userImage.setImageResource(plants.get(position).getUser().getImageId());
+    //    holder.userImage.setImageResource(plants.get(position).getUser().getImageId());
     }
 
     @Override

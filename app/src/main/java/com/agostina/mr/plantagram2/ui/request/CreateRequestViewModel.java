@@ -20,7 +20,7 @@ public class CreateRequestViewModel extends AndroidViewModel {
 
     public void plantIdentification(String photoPath) {
         try {
-            plantRepository.plantIdentification(photoPath);
+            plantRepository.requestIdentification(photoPath);
         } catch (Exception e) {
             e.printStackTrace();
         }
