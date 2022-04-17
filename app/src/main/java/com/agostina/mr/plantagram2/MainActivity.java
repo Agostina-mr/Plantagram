@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 .setOnClickListener(v->{
                     if (isFabVisible){
                         binding.appBarMain.fab.setVisibility(View.INVISIBLE);
-                        navController.navigate(R.id.test);
+                        navController.navigate(R.id.camera);
                     }
                 });
 

@@ -24,7 +24,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.agostina.mr.plantagram2.R;
-import com.agostina.mr.plantagram2.databinding.FragmentTestBinding;
+
+import com.agostina.mr.plantagram2.databinding.FragmentCameraBinding;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.io.File;
@@ -42,7 +43,7 @@ import okhttp3.RequestBody;
 
 public class CameraFragment extends Fragment
 {
-    private FragmentTestBinding binding;
+    private FragmentCameraBinding binding;
     private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private ImageCapture imageCapture;
     private PreviewView previewView;
@@ -52,7 +53,7 @@ public class CameraFragment extends Fragment
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentTestBinding.inflate(inflater, container, false);
+        binding = FragmentCameraBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         previewView = root.findViewById(R.id.preview_view);
@@ -82,7 +83,7 @@ public class CameraFragment extends Fragment
         return root;
     }
     private Executor getExecutor() {
-        return ContextCompat.getMainExecutor(this.getContext());
+        return ContextCompat.getMainExecutor(this.requireContext());
     }
 
     private void startCameraX(ProcessCameraProvider cameraProvider) {

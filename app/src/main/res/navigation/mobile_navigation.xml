@@ -25,10 +25,10 @@
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment
-        android:id="@+id/test"
+        android:id="@+id/camera"
         android:name="com.agostina.mr.plantagram2.ui.request.CameraFragment"
-        android:label="test"
-        tools:layout="@layout/fragment_test">
+        android:label=""
+        tools:layout="@layout/fragment_camera">
         <action
             android:id="@+id/action_test_to_create_post"
             app:destination="@id/create_post" />
@@ -36,7 +36,7 @@
     <fragment
         android:id="@+id/create_post"
         android:name="com.agostina.mr.plantagram2.ui.request.CreateRequestFragment"
-        android:label="request"
+        android:label="Request Identification"
         tools:layout="@layout/fragment_create_request">
         <argument
             android:name="path"
@@ -44,6 +44,6 @@
             android:defaultValue="default" />
         <action
             android:id="@+id/action_create_post_to_test"
-            app:destination="@id/test" />
+            app:destination="@id/camera" />
     </fragment>
 </navigation>

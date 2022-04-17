@@ -1,36 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:gravity="center">
+ >
 
 
     <ImageView
         android:id="@+id/new_image"
+        android:layout_margin="@android:dimen/app_icon_size"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"
         />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/plant_name"/>
-   <Button
-       android:id="@+id/cancel_b"
-       android:layout_width="match_parent"
-       android:layout_height="0dp"
-       android:layout_weight="1"
-       android:text="@string/cancel_request_button"
-       />
-    <Button
-        android:id="@+id/approve_b"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="@string/request_identification"/>
 
 
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/cancel_b"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_margin="40dp"
+            android:background="@drawable/cancel"
+            app:cornerRadius="28dp"
+            app:layout_constraintEnd_toStartOf="@+id/approve_b" />
+
+        <Button
+            android:id="@+id/approve_b"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_margin="40dp"
+            android:layout_marginEnd="80dp"
+            android:background="@drawable/checked"
+            app:cornerRadius="28dp" />
+
+    </LinearLayout>
 </LinearLayout>

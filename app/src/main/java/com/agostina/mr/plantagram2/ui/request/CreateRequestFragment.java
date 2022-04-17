@@ -32,24 +32,22 @@ public class CreateRequestFragment extends Fragment {
         ImageView imageView = root.findViewById(R.id.new_image);
         Button cancelRequest = root.findViewById(R.id.cancel_b);
         Button approveRequest = root.findViewById(R.id.approve_b);
-        TextView plantName = root.findViewById(R.id.plant_name);
+
 
         viewModel = new ViewModelProvider(this).get(CreateRequestViewModel.class);
         path = CreateRequestFragmentArgs.fromBundle(getArguments()).getPath();
         Glide.with(root.getContext()).load(path).apply(new RequestOptions().override(1200, 2000)).into(imageView);
 
         cancelRequest.setOnClickListener(v-> {
-            Navigation.findNavController(root).navigate(R.id.test);
+            Navigation.findNavController(root).navigate(R.id.camera);
         });
 
         approveRequest.setOnClickListener(v->{
             ///create the parts for post request
             viewModel.plantIdentification(path);
             });
-        viewModel.getIdentifiedPlant().observe(getViewLifecycleOwner(), plant -> { plantName.setText(plant.getSuggestions().get(0).getPlant_name());
-
-
-        });
+        //viewModel.getIdentifiedPlant().observe(getViewLifecycleOwner(), plant -> { plantName.setText(plant.getSuggestions().get(0).getPlant_name());
+        // });
 
         return root;
     }
