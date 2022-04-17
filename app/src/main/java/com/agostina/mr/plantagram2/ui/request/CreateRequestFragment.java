@@ -1,9 +1,6 @@
 package com.agostina.mr.plantagram2.ui.request;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.FileUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,21 +11,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import com.agostina.mr.plantagram2.MainActivity;
 import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.databinding.FragmentCreateRequestBinding;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-
-import java.io.File;
-import java.util.Objects;
-
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 
 public class CreateRequestFragment extends Fragment {
     private FragmentCreateRequestBinding binding;
@@ -43,6 +32,8 @@ public class CreateRequestFragment extends Fragment {
         ImageView imageView = root.findViewById(R.id.new_image);
         Button cancelRequest = root.findViewById(R.id.cancel_b);
         Button approveRequest = root.findViewById(R.id.approve_b);
+        TextView plantName = root.findViewById(R.id.plant_name);
+
         viewModel = new ViewModelProvider(this).get(CreateRequestViewModel.class);
         path = CreateRequestFragmentArgs.fromBundle(getArguments()).getPath();
         Glide.with(root.getContext()).load(path).apply(new RequestOptions().override(1200, 2000)).into(imageView);
@@ -53,14 +44,13 @@ public class CreateRequestFragment extends Fragment {
 
         approveRequest.setOnClickListener(v->{
             ///create the parts for post request
-            Uri uri = Uri.parse(path);
-            viewModel.plantIdentification(uri);
-            TextView plantName = root.findViewById(R.id.name);
-            viewModel.getIdentifiedPlant().observe((LifecycleOwner) this.requireContext(), plant -> {
-               // plantName.setText(plant.getSuggestions().getPlant_name());
+            viewModel.plantIdentification(path);
             });
+        viewModel.getIdentifiedPlant().observe(getViewLifecycleOwner(), plant -> { plantName.setText(plant.getSuggestions().get(0).getPlant_name());
+
 
         });
+
         return root;
     }
 }

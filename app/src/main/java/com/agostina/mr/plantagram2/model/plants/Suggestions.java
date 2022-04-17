@@ -4,18 +4,17 @@ public class Suggestions {
 
     private int id;
     private String plant_name;
-
-    public Suggestions(int id, String plant_name) {
-        this.id = id;
-        this.plant_name = plant_name;
-    }
+    private PlantDetails plant_details;
 
     public int getId() {
-
         return id;
     }
 
     public String getPlant_name() {
         return plant_name;
+    }
+
+    public PlantDetails getPlant_details() {
+        return plant_details;
     }
 }

@@ -1,16 +1,12 @@
 package com.agostina.mr.plantagram2.repository;
 
 
-import android.net.Uri;
-import android.os.StrictMode;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.agostina.mr.plantagram2.model.plants.ImagesResponse;
 import com.agostina.mr.plantagram2.model.plants.Plant;
-import com.agostina.mr.plantagram2.model.plants.PlantPost;
+import com.agostina.mr.plantagram2.model.plants.responses.PlantResponse;
 import com.agostina.mr.plantagram2.network.PlantIdApi;
 import com.agostina.mr.plantagram2.network.ServiceGenerator;
 import com.google.gson.JsonArray;
@@ -28,21 +24,23 @@ import retrofit2.Response;
 import retrofit2.internal.EverythingIsNonNull;
 
 public class PlantRepository {
-    private ArrayList<PlantPost> plantPosts;
+    private ArrayList<Plant> plants;
     private static PlantRepository instance;
     private UserRepository userRepository;
-    private final MutableLiveData<Plant> identifiedPlant;
+    private final MutableLiveData<PlantResponse> identifiedPlant;
+
 
     private PlantRepository() {
         identifiedPlant = new MutableLiveData<>();
-        this.plantPosts = new ArrayList<>();
+        this.plants = new ArrayList<>();
         this.userRepository = UserRepository.getInstance();
 
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder(StrictMode.getVmPolicy())
-                .detectLeakedClosableObjects()
-                .build());
-
     }
+
+    public LiveData<PlantResponse> getIdentifiedPlant() {
+        return identifiedPlant;
+    }
+
     public static synchronized PlantRepository getInstance() {
         if (instance == null) {
             instance = new PlantRepository();
@@ -51,22 +49,20 @@ public class PlantRepository {
     }
 
     public void addPlant(Plant plant) {
-        plantPosts.add(new PlantPost(plant, userRepository.getUsersById(1)));
+        plants.add(plant);
     }
 
-    public ArrayList<PlantPost> getPlantPosts() {
-        return plantPosts;
+    public ArrayList<Plant> getPlants() {
+        return plants;
     }
-
-    public void plantIdentification(Uri photoPath) throws Exception {
-        System.out.println(photoPath);
+    public void plantIdentification(String photoPath) throws Exception {
         //access Retrofit service generator
         PlantIdApi plantIdApi = ServiceGenerator.getPlantApi();
         //My api key
-        String apiKey = "DUTfIkBzHladcugpM3x1b7wqGM7foXH9BxTTOIyvqAr1Rs2M0P";
+       // String apiKey = "DUTfIkBzHladcugpM3x1b7wqGM7foXH9BxTTOIyvqAr1Rs2M0P";
+        String apiKey = "123";
         // get image from local file
         String[] flowers = new String[]{String.valueOf(photoPath)};
-
         JsonObject data = new JsonObject();
        // data.put("id", null);
         JsonArray images = new JsonArray();
@@ -77,16 +73,21 @@ public class PlantRepository {
         data.add("images", images);
         System.out.println(data);
 
-        Call<ImagesResponse> plantResponseCall = plantIdApi.getPlantIdentification(apiKey, data);
-         plantResponseCall.enqueue(new Callback<ImagesResponse>() {
+        Call<PlantResponse> plantResponseCall = plantIdApi.getPlantIdentification(/*apiKey, data*/);
+         plantResponseCall.enqueue(new Callback<PlantResponse>() {
             @EverythingIsNonNull
             @Override
-            public void onResponse(@NonNull Call<ImagesResponse> call, Response<ImagesResponse> response) {
-                    System.out.println("On response code: " + response.code());
+            public void onResponse(@NonNull Call<PlantResponse> call, Response<PlantResponse> response) {
+                    System.out.println("On response code: " + response.code() + response.body().getPlant().getSuggestions().get(0).getPlant_name());
+                    if (response.isSuccessful())
+                    {
+                            identifiedPlant.setValue(response.body());
+                        System.out.println(identifiedPlant.getValue());
+                    }
             }
             @EverythingIsNonNull
             @Override
-            public void onFailure(Call<ImagesResponse> call, Throwable t) {
+            public void onFailure(Call<PlantResponse> call, Throwable t) {
                 System.out.println("--------Onfailure---------" + t.getMessage());
             }
         });
@@ -96,13 +97,10 @@ public class PlantRepository {
         try {
             byte[] fileContent = Files.readAllBytes(file.toPath());
             String encoded = Base64.getEncoder().encodeToString(fileContent);
-            System.out.println("ENCODED------>" + encoded);
+
             return encoded;
         } catch (IOException e) {
             throw new IllegalStateException("could not read file " + file, e);
         }
-    }
-    public LiveData<Plant> getIdentifiedPlant() {
-        return identifiedPlant;
     }
 }
