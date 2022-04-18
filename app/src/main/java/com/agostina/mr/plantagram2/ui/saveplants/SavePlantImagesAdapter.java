@@ -36,7 +36,7 @@ public class SavePlantImagesAdapter extends RecyclerView.Adapter<SavePlantImages
 
     @Override
     public void onBindViewHolder(@NonNull SavePlantImagesAdapter.ViewHolder holder, int position) {
-     Glide.with(holder.context).load( imagesArrayList.get(position).getUrl()).override(600, 600).into(holder.imageView);
+     Glide.with(holder.context).load( imagesArrayList.get(position).getUrl()).override(800, 800).into(holder.imageView);
     }
 
     @Override

@@ -68,7 +68,8 @@ public class SavePlantFragment extends Fragment {
 
     private void setUpSuggestionsRecyclerView(View view){
         suggestionsRV.hasFixedSize();
-        suggestionsRV.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        suggestionsRV.setLayoutManager(new LinearLayoutManager(view.getContext(),
+                LinearLayoutManager.HORIZONTAL, false));
         suggestionsAdapter = new SavePlantSuggestionsAdapter(suggestions);
         suggestionsRV.setAdapter(suggestionsAdapter);
         viewModel.getIdentifiedPlant().observe(getViewLifecycleOwner(), plant -> {

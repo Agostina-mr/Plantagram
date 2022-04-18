@@ -5,25 +5,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:layout_margin="20dp"
+    >
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/plant_images_rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="8"
         android:orientation="horizontal"
         />
-
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/plant_suggestions_rv"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="6"
-        android:orientation="horizontal" />
+        android:layout_weight="5"
+        android:orientation="horizontal"
+        />
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/custom_you_finding_write_a_comment"
+        android:background="@color/columbia_blue"
+        android:gravity="center"
+        style="@android:style/TextAppearance.DeviceDefault.Medium"
 
+        />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/plant_comment_input"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        />
+    <Button
+        android:id="@+id/save_plant_b"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/save_button"
+        />
 </LinearLayout>
