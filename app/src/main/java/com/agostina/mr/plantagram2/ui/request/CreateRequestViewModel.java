@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.agostina.mr.plantagram2.model.plants.Plant;
 import com.agostina.mr.plantagram2.model.plants.responses.PlantResponse;
 import com.agostina.mr.plantagram2.repository.PlantRepository;
 
@@ -24,9 +25,6 @@ public class CreateRequestViewModel extends AndroidViewModel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-     public LiveData<PlantResponse> getIdentifiedPlant(){
-        return plantRepository.getIdentifiedPlant();
     }
 
 

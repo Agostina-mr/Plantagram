@@ -45,5 +45,18 @@
         <action
             android:id="@+id/action_create_post_to_test"
             app:destination="@id/camera" />
+        <action
+            android:id="@+id/action_create_post_to_save_plant_fragment"
+            app:destination="@id/save_plant_fragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/save_plant_fragment"
+        android:name="com.agostina.mr.plantagram2.ui.saveplants.SavePlantFragment"
+        android:label="Save your findings"
+        tools:layout="@layout/fragment_save_plant"
+      />
+
+
+
 </navigation>

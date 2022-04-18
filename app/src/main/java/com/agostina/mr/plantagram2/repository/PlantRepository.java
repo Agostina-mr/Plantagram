@@ -5,19 +5,15 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.agostina.mr.plantagram2.model.plants.Images;
 import com.agostina.mr.plantagram2.model.plants.Plant;
 import com.agostina.mr.plantagram2.model.plants.responses.PlantResponse;
 import com.agostina.mr.plantagram2.network.PlantIdApi;
 import com.agostina.mr.plantagram2.network.ServiceGenerator;
 import com.agostina.mr.plantagram2.utilities.Helper;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Base64;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,16 +23,17 @@ import retrofit2.internal.EverythingIsNonNull;
 public class PlantRepository {
     private ArrayList<Plant> plants;
     private static PlantRepository instance;
-    private final MutableLiveData<PlantResponse> identifiedPlant;
+    private final MutableLiveData<Plant> identifiedPlant;
+
 
 
     private PlantRepository() {
-        identifiedPlant = new MutableLiveData<>();
+        identifiedPlant = new MutableLiveData<Plant>();
         this.plants = new ArrayList<>();
 
     }
 
-    public LiveData<PlantResponse> getIdentifiedPlant() {
+    public LiveData<Plant> getIdentifiedPlant() {
         return identifiedPlant;
     }
 
@@ -63,10 +60,13 @@ public class PlantRepository {
             @EverythingIsNonNull
             @Override
             public void onResponse(@NonNull Call<PlantResponse> call, Response<PlantResponse> response) {
+
                     if (response.isSuccessful())
                     {
-                            identifiedPlant.setValue(response.body());
-                        System.out.println(identifiedPlant.getValue());
+                        System.out.println("------------"+response.body().getPlant().getSuggestions().get(0).getPlant_name());
+                        assert response.body() != null;
+                        identifiedPlant.setValue(response.body().getPlant());
+                        System.out.println("+++" + identifiedPlant.getValue().getImages().get(0).getUrl());
                     }
             }
             @EverythingIsNonNull

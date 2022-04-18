@@ -10,6 +10,10 @@ public class Plant {
     private boolean is_plant;
     private double is_plant_probability;
 
+    public Plant() {
+
+    }
+
     public Plant(int id, ArrayList<Images> images, ArrayList<Suggestions> suggestions, boolean is_plant, double is_plant_probability) {
         this.id = id;
         this.images = images;
@@ -29,11 +33,9 @@ public class Plant {
     public ArrayList<Suggestions> getSuggestions() {
         return suggestions;
     }
-
     public boolean isIs_plant() {
         return is_plant;
     }
-
     public double getIs_plant_probability() {
         return is_plant_probability;
     }

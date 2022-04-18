@@ -17,4 +17,8 @@
     <string name="photo_success">Photo has been saved successfully</string>
     <string name="request_identification">Request Identification</string>
     <string name="cancel_request_button">Cancel</string>
+    <string name="save_button">Save</string>
+    <string name="you_just_found">You just found:</string>
+    <string name="short_description">Short description:</string>
+    <string name="custom_you_finding_write_a_comment">Custom you finding, write a comment</string>
 </resources>

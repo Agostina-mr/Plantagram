@@ -45,10 +45,8 @@ public class CreateRequestFragment extends Fragment {
         approveRequest.setOnClickListener(v->{
             ///create the parts for post request
             viewModel.plantIdentification(path);
+            Navigation.findNavController(root).navigate(R.id.save_plant_fragment);
             });
-        //viewModel.getIdentifiedPlant().observe(getViewLifecycleOwner(), plant -> { plantName.setText(plant.getSuggestions().get(0).getPlant_name());
-        // });
-
         return root;
     }
 }
