@@ -55,8 +55,10 @@
         android:name="com.agostina.mr.plantagram2.ui.saveplants.SavePlantFragment"
         android:label="Save your findings"
         tools:layout="@layout/fragment_save_plant"
-      />
-
-
+      >
+        <action
+            android:id="@+id/action_save_plant_fragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 
 </navigation>

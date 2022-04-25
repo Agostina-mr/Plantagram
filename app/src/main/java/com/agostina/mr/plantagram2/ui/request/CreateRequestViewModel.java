@@ -15,7 +15,7 @@ public class CreateRequestViewModel extends AndroidViewModel {
 
     public CreateRequestViewModel(@NonNull Application application) {
         super(application);
-        plantRepository = PlantRepository.getInstance();
+        plantRepository = PlantRepository.getInstance(application);
     }
 
 

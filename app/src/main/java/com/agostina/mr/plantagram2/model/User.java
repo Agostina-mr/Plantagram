@@ -1,16 +1,17 @@
 package com.agostina.mr.plantagram2.model;
 
-public class User {
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+@Entity(tableName = "user")
+public class User {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private String userName;
     private String password;
-    private int imageId;
+    private String image;
 
-    public User(String userName, String password, int imageId) {
-        this.userName = userName;
-        this.password = password;
-        this.imageId = imageId;
-    }
+
 
     public String getUserName() {
         return userName;
@@ -28,11 +29,19 @@ public class User {
         this.password = password;
     }
 
-    public int getImageId() {
-        return imageId;
+    public int getId() {
+        return id;
     }
 
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+    public String getImage() {
+        return image;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

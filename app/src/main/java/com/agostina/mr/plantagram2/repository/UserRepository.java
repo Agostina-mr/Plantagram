@@ -12,8 +12,7 @@ public class UserRepository {
 
     private UserRepository() {
         this.users = new ArrayList<>();
-        users.add(new User("flotus", "123456", R.drawable.p2));
-        users.add(new User("markus", "123456", R.drawable.p1));
+
     }
 
     public static UserRepository getInstance()

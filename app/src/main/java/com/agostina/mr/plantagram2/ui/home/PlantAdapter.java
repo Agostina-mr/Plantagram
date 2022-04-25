@@ -1,6 +1,7 @@
 package com.agostina.mr.plantagram2.ui.home;
 
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.model.plants.Plant;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
+import java.util.List;
 
 public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> {
-    private ArrayList<Plant> plants;
+    private List<Plant> plants;
     private OnClickListener onClickListener;
 
-    public PlantAdapter(ArrayList<Plant> plants) {
+    public PlantAdapter(List<Plant> plants) {
         this.plants = plants;
     }
 
@@ -35,15 +36,25 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-      //  holder.name.setText(plants.get(position).getUser().getUserName());
-        //holder.description.setText(plants.get(position).getPlant().getSugestions().getPlant_name());
-        //holder.picture.setImageResource(plants.get(position).getPlant().);
-    //    holder.userImage.setImageResource(plants.get(position).getUser().getImageId());
+        holder.name.setText(plants.get(position).getSuggestions().get(0).getPlant_name());
+        holder.description.setText(plants.get(position).getSuggestions().get(0).getPlant_details().getWiki_description().getValue());
+        Glide.with(holder.context).load(plants.get(position).getImages().get(0).getUrl()).into(holder.picture);
+
+
     }
 
     @Override
     public int getItemCount() {
-        return plants.size();
+        if (plants != null) {
+            return plants.size();
+        }
+        return 0;
+    }
+
+    public void updatePlantList(final List<Plant> plants) {
+        this.plants.clear();
+        this.plants = plants;
+        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -51,16 +62,16 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
         private final TextView location;
         private final TextView description;
         private final ImageView picture;
-        private final CircleImageView userImage;
+        private final Context context;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            context = itemView.getContext();
             name = itemView.findViewById(R.id.name);
             picture = itemView.findViewById(R.id.image);
-            description= itemView.findViewById(R.id.description);
-            location= itemView.findViewById(R.id.location);
-            userImage = itemView.findViewById(R.id.user_image);
-
+            description = itemView.findViewById(R.id.description);
+            location = itemView.findViewById(R.id.location);
         }
     }
 

@@ -43,21 +43,18 @@ import okhttp3.RequestBody;
 
 public class CameraFragment extends Fragment
 {
-    private FragmentCameraBinding binding;
-    private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     private ImageCapture imageCapture;
     private PreviewView previewView;
-    private Button buttonTakePicture;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentCameraBinding.inflate(inflater, container, false);
+        com.agostina.mr.plantagram2.databinding.FragmentCameraBinding binding = FragmentCameraBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         previewView = root.findViewById(R.id.preview_view);
-        buttonTakePicture = root.findViewById(R.id.button_take_picture);
+        Button buttonTakePicture = root.findViewById(R.id.button_take_picture);
 
         buttonTakePicture.setOnClickListener(v-> {
             try {
@@ -68,7 +65,7 @@ public class CameraFragment extends Fragment
         });
 
 
-        cameraProviderFuture = ProcessCameraProvider.getInstance(this.getContext());
+        ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this.getContext());
         cameraProviderFuture.addListener(() ->{
             try {
                 ProcessCameraProvider cameraProvider = ProcessCameraProvider.getInstance(this.getContext()).get();
