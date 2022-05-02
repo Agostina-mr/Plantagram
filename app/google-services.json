@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "970493783624",
+    "project_id": "plantagram-7693c",
+    "storage_bucket": "plantagram-7693c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970493783624:android:897154b0449d20cac2727d",
+        "android_client_info": {
+          "package_name": "com.agostina.mr.plantagram2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "970493783624-a53e41ucpbcn1qgl7lpgmo44hppngd4s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOJGtl7RBmWhSy-KWYAQOiVIHB8GMd33E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "970493783624-a53e41ucpbcn1qgl7lpgmo44hppngd4s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

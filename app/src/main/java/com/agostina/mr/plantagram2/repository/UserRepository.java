@@ -1,34 +1,35 @@
 package com.agostina.mr.plantagram2.repository;
 
-import com.agostina.mr.plantagram2.R;
-import com.agostina.mr.plantagram2.model.User;
+import android.app.Application;
 
-import java.util.ArrayList;
+import androidx.lifecycle.LiveData;
+
+import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.auth.FirebaseUser;
 
 public class UserRepository {
 
+    private final UserLiveData currentUser;
+    private final Application app;
     private static UserRepository instance;
-    private ArrayList<User> users;
 
-    private UserRepository() {
-        this.users = new ArrayList<>();
-
+    private UserRepository(Application app) {
+        this.app = app;
+        currentUser = new UserLiveData();
     }
 
-    public static UserRepository getInstance()
-    {
+    public static synchronized UserRepository getInstance(Application app) {
         if(instance == null)
-        {
-            return new UserRepository();
-        }
+            instance = new UserRepository(app);
         return instance;
     }
 
-    public User getUsersById(int id) {
-        return users.get(id);
+    public LiveData<FirebaseUser> getCurrentUser() {
+        return currentUser;
     }
 
-    public void setUsers(ArrayList<User> users) {
-        this.users = users;
+    public void signOut() {
+        AuthUI.getInstance()
+                .signOut(app.getApplicationContext());
     }
 }

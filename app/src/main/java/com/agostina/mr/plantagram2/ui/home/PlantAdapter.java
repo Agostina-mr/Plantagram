@@ -59,7 +59,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView name;
-        private final TextView location;
+       // private final TextView location;
         private final TextView description;
         private final ImageView picture;
         private final Context context;
@@ -71,7 +71,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
             name = itemView.findViewById(R.id.name);
             picture = itemView.findViewById(R.id.image);
             description = itemView.findViewById(R.id.description);
-            location = itemView.findViewById(R.id.location);
+           // location = itemView.findViewById(R.id.location);
         }
     }
 
