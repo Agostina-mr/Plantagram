@@ -1,3 +1,5 @@
+"Icon made By Roundicons from www.flaticon.com "https://www.flaticon.com/free-icons/leaf"
+
 # Plantagram
 ### Android Development Assigment (4th semester)
 Plantagram is an application where nature lovers post their findings such as interesting plants and flowers with the community.
