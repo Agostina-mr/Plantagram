@@ -8,9 +8,11 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.agostina.mr.plantagram2.ui.home.HomeFragment"
-        android:label="@string/menu_home"
+        android:label="My garden"
         tools:layout="@layout/fragment_home" >
     </fragment>
+
+
 
     <fragment
         android:id="@+id/camera"
