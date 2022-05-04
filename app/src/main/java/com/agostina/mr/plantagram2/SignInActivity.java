@@ -3,28 +3,35 @@ package com.agostina.mr.plantagram2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
+import com.firebase.ui.auth.IdpResponse;
+import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class SignInActivity extends AppCompatActivity {
     private SignInViewModel viewModel;
+    private FirebaseUser user;
 
-    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() == RESULT_OK)
-                    goToMainActivity();
-                else
-                    Toast.makeText(this, "SIGN IN CANCELLED", Toast.LENGTH_SHORT).show();
-            });
+  private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
+          new FirebaseAuthUIActivityResultContract(),
+          new ActivityResultCallback<FirebaseAuthUIAuthenticationResult>() {
+              @Override
+              public void onActivityResult(FirebaseAuthUIAuthenticationResult result) {
+                  onSignInResult(result);
+              }
+          }
+  );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +43,11 @@ public class SignInActivity extends AppCompatActivity {
 
     private void checkIfSignedIn() {
         viewModel.getCurrentUser().observe(this, user -> {
-            if (user != null)
-                goToMainActivity();
+            if (user != null){
+                goToMainActivity();}
+            else{
+
+            }
         });
     }
 
@@ -54,9 +64,20 @@ public class SignInActivity extends AppCompatActivity {
         Intent signInIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
-                .setLogo(R.drawable.leaf)
+                .setLogo(R.drawable.leaf).setIsSmartLockEnabled(false)
                 .build();
+        signInLauncher.launch(signInIntent);
 
-        activityResultLauncher.launch(signInIntent);
+    }
+
+    private void onSignInResult(FirebaseAuthUIAuthenticationResult result){
+        IdpResponse response = result.getIdpResponse();
+        if (result.getResultCode() == RESULT_OK){
+             user = FirebaseAuth.getInstance().getCurrentUser();
+
+        }
+        else {
+           // response.getError();
+        }
     }
 }

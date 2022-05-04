@@ -1,45 +1,21 @@
 package com.agostina.mr.plantagram2;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.ResultReceiver;
-import android.provider.MediaStore;
-import android.view.View;
 import android.view.Menu;
-import android.widget.ImageView;
+import android.view.View;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.core.content.FileProvider;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
 import com.agostina.mr.plantagram2.databinding.ActivityMainBinding;
-
-import java.io.File;
-import java.io.IOException;
-import java.lang.annotation.Target;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import javax.xml.transform.Result;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private NavController navController;
     private boolean isFabVisible;
     private static Context context;
+    private MainActivityViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +35,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        checkIfSignedIn();
         binding.appBarMain.fab.setVisibility(View.VISIBLE);
         isFabVisible = true;
+
 
 
         binding.appBarMain.fab
@@ -100,6 +80,20 @@ public class MainActivity extends AppCompatActivity {
 
     public static Context getContext(){
         return MainActivity.getContext();
+    }
+    private void checkIfSignedIn() {
+        viewModel.getCurrentUser().observe(this, user -> {
+            if (user != null) {
+              //  viewModel.init();
+                navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+            } else
+                startLoginActivity();
+        });
+    }
+
+    private void startLoginActivity() {
+        startActivity(new Intent(this, SignInActivity.class));
+        finish();
     }
 }
 
