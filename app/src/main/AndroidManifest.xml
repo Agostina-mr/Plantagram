@@ -25,10 +25,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Plantagram2">
         <activity
-            android:name=".SignInActivity"
+            android:name=".ui.SignInActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Plantagram2.NoActionBar">
             <intent-filter>

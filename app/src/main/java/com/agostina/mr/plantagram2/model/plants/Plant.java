@@ -1,15 +1,14 @@
 package com.agostina.mr.plantagram2.model.plants;
 
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
 
 import com.agostina.mr.plantagram2.model.User;
-import com.agostina.mr.plantagram2.room.Converters;
 
 import java.util.ArrayList;
 import java.util.Date;
+
 @Entity(tableName = "plant")
 public class Plant {
     @PrimaryKey(autoGenerate = true)
@@ -26,8 +25,10 @@ public class Plant {
 
     private User user = new User();
 
-    public Plant() { }
+    public Plant() {
+    }
 
+    @Ignore
     public Plant(int id, ArrayList<Images> images, ArrayList<Suggestions> suggestions, boolean is_plant, double is_plant_probability) {
         this.id = id;
         this.images = images;
@@ -36,6 +37,7 @@ public class Plant {
         this.is_plant_probability = is_plant_probability;
     }
 
+    @Ignore
     public Plant(ArrayList<Images> images, ArrayList<Suggestions> suggestions, String user_comment) {
         this.images = images;
         this.suggestions = suggestions;

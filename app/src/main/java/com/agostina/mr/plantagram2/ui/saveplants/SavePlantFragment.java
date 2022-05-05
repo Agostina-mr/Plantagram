@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.databinding.FragmentSavePlantBinding;
-import com.agostina.mr.plantagram2.model.User;
 import com.agostina.mr.plantagram2.model.plants.Images;
 import com.agostina.mr.plantagram2.model.plants.Plant;
 import com.agostina.mr.plantagram2.model.plants.Suggestions;
@@ -94,6 +93,7 @@ public class SavePlantFragment extends Fragment {
         } else {
             userInput.getText().toString();
         }
+
         viewModel.savePlant(plant);
         Navigation.findNavController(view).navigate(R.id.nav_home);
     }

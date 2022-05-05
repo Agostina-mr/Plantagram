@@ -1,23 +1,6 @@
 package com.agostina.mr.plantagram2.network;
 
-import android.webkit.WebSettings;
-
-import androidx.annotation.NonNull;
-
-import com.agostina.mr.plantagram2.MainActivity;
-
-import java.io.IOException;
-
-import io.reactivex.plugins.RxJavaPlugins;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.CallAdapter;
-import retrofit2.Converter;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {

@@ -1,4 +1,4 @@
-package com.agostina.mr.plantagram2;
+package com.agostina.mr.plantagram2.ui;
 
 import android.app.Application;
 
@@ -8,16 +8,23 @@ import androidx.lifecycle.LiveData;
 import com.agostina.mr.plantagram2.repository.UserRepository;
 import com.google.firebase.auth.FirebaseUser;
 
-public class SignInViewModel extends AndroidViewModel {
+public class MainActivityViewModel extends AndroidViewModel {
     private final UserRepository userRepository;
 
-    public SignInViewModel(Application app){
+
+    public MainActivityViewModel(Application app){
         super(app);
         userRepository = UserRepository.getInstance(app);
+
     }
+
 
     public LiveData<FirebaseUser> getCurrentUser(){
         return userRepository.getCurrentUser();
     }
 
+
+    public void signOut() {
+        userRepository.signOut();
+    }
 }
