@@ -20,4 +20,7 @@ public class SignInViewModel extends AndroidViewModel {
         return userRepository.getCurrentUser();
     }
 
+    public void setCurrentUser(FirebaseUser user) {
+        userRepository.setCurrentUser(user);
+    }
 }

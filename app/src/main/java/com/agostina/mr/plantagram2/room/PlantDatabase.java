@@ -12,6 +12,7 @@ import com.agostina.mr.plantagram2.model.plants.Plant;
 
 @Database(entities = {User.class, Plant.class}, version =1 )
 @TypeConverters({Converters.class})
+
 public abstract class PlantDatabase extends RoomDatabase {
 
     private static PlantDatabase instance;

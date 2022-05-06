@@ -75,6 +75,7 @@ public class SignInActivity extends AppCompatActivity {
         IdpResponse response = result.getIdpResponse();
         if (result.getResultCode() == RESULT_OK){
              user = FirebaseAuth.getInstance().getCurrentUser();
+             viewModel.setCurrentUser(user);
 
         }
         else {

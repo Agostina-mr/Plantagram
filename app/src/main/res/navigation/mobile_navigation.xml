@@ -51,7 +51,11 @@
     <fragment
         android:id="@+id/plantagram_main_fragment"
         android:name="com.agostina.mr.plantagram2.ui.PlantagramMainFragment"
-        tools:layout="@layout/fragment_plantagram_main"/>
+        tools:layout="@layout/fragment_plantagram_main">
+        <action
+            android:id="@+id/action_plantagram_main_fragment_to_create_post"
+            app:destination="@id/create_post" />
+    </fragment>
 
 
 

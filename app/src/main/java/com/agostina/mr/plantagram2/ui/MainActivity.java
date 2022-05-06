@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         checkIfSignedIn();
 
+
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -56,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
     private void checkIfSignedIn() {
         viewModel.getCurrentUser().observe(this, user -> {
             if (user != null) {
-              //  viewModel.init();
+                Toast.makeText(this, "Welcome " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
+                viewModel.init();
                 navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
             } else
                 startLoginActivity();

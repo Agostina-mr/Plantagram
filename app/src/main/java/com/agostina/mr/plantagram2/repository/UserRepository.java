@@ -9,7 +9,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class UserRepository {
 
-    private UserLiveData currentUser;
+    private final UserLiveData currentUser;
     private final Application app;
     private static UserRepository instance;
 
@@ -32,5 +32,9 @@ public class UserRepository {
     public void signOut() {
         AuthUI.getInstance()
                 .signOut(app.getApplicationContext());
+    }
+
+    public void setCurrentUser(FirebaseUser user) {
+        //currentUser = user;
     }
 }
