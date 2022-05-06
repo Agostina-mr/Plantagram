@@ -6,7 +6,7 @@ import androidx.room.TypeConverter;
 
 import com.agostina.mr.plantagram2.model.User;
 import com.agostina.mr.plantagram2.model.plants.Images;
-import com.agostina.mr.plantagram2.model.plants.Plant;
+import com.agostina.mr.plantagram2.model.plants.Plants;
 import com.agostina.mr.plantagram2.model.plants.Suggestions;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -30,13 +30,13 @@ public class Converters {
         }
 
     @TypeConverter
-    public static LiveData<ArrayList<Plant>> plantFromString(String value) {
-        Type listType = new TypeToken<LiveData<ArrayList<Plant>>>() {}.getType();
+    public static LiveData<ArrayList<Plants>> plantFromString(String value) {
+        Type listType = new TypeToken<LiveData<ArrayList<Plants>>>() {}.getType();
         return new Gson().fromJson(value, listType);
     }
 
     @TypeConverter
-    public static String plantFromArrayList(LiveData<ArrayList<Plant>> list) {
+    public static String plantFromArrayList(LiveData<ArrayList<Plants>> list) {
         Gson gson = new Gson();
         String json = gson.toJson(list);
         return json;

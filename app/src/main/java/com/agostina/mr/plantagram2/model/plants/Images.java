@@ -6,14 +6,16 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = ("images"))
 public class Images {
     @PrimaryKey(autoGenerate = true)
-    private int id;
     private String file_name;
+    private int id;
     private String url;
-    public String getFile_name() {
-        return file_name;
-    }
+
 
     public Images() {
+    }
+
+    public String getFile_name() {
+        return file_name;
     }
 
     public String getUrl() {

@@ -16,10 +16,13 @@ public class PlantagramPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        Fragment fragment = new CameraFragment();
+        Fragment fragment = new HomeFragment();
         if (position == 0)
         {
             fragment = new HomeFragment();
+        }
+        if (position == 2){
+            fragment = new CameraFragment();
         }
         return fragment;
 

@@ -8,31 +8,29 @@ import androidx.room.PrimaryKey;
 import com.agostina.mr.plantagram2.model.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity(tableName = "plant")
-public class Plant {
+public class Plants {
     @PrimaryKey(autoGenerate = true)
     private int dbId;
     private int id;
-    private ArrayList<Images> images = new ArrayList<>();
-    private ArrayList<Suggestions> suggestions = new ArrayList<>();
+    @Ignore
+    private List<Images> images = new ArrayList<>();
     private boolean is_plant;
     private double is_plant_probability;
-    private String user_comment;
-    private String curveName;
-
-
-    /*@Ignore
-    private MyDate date = new MyDate();*/
-    /*private Date date = new Date();*/
-
+    @Ignore
+    private List<Suggestions> suggestions = new ArrayList<>();
     private User user = new User();
+    private String userComment;
+    private String user_comment;
+    //private String curveName;
 
-    public Plant() {
+    public Plants() {
     }
 
     @Ignore
-    public Plant(int id, ArrayList<Images> images, ArrayList<Suggestions> suggestions, boolean is_plant, double is_plant_probability) {
+    public Plants(int id, ArrayList<Images> images, ArrayList<Suggestions> suggestions, boolean is_plant, double is_plant_probability) {
         this.id = id;
         this.images = images;
         this.suggestions = suggestions;
@@ -41,7 +39,7 @@ public class Plant {
     }
 
     @Ignore
-    public Plant(ArrayList<Images> images, ArrayList<Suggestions> suggestions, String user_comment) {
+    public Plants(ArrayList<Images> images, ArrayList<Suggestions> suggestions, String user_comment) {
         this.images = images;
         this.suggestions = suggestions;
         this.user_comment = user_comment;
@@ -51,11 +49,11 @@ public class Plant {
         return id;
     }
 
-    public ArrayList<Images> getImages() {
+    public List<Images> getImages() {
         return images;
     }
 
-    public ArrayList<Suggestions> getSuggestions() {
+    public List<Suggestions> getSuggestions() {
         return suggestions;
     }
 
@@ -74,24 +72,6 @@ public class Plant {
     public void setUserComment(String userComment) {
         this.user_comment = userComment;
     }
-/*
-    public MyDate getDate() {
-        return date;
-    }
-
-    public void setDate(MyDate date) {
-        this.date = date;
-    }*/
-/*
-
-    public Date getDate() {
-        return date;
-    }
-*/
-/*
-    public void setDate(Date date) {
-        this.date = date;
-    }*/
 
     public User getUser() {
         return user;
@@ -117,14 +97,6 @@ public class Plant {
         this.id = id;
     }
 
-    public void setImages(ArrayList<Images> images) {
-        this.images = images;
-    }
-
-    public void setSuggestions(ArrayList<Suggestions> suggestions) {
-        this.suggestions = suggestions;
-    }
-
     public void setIs_plant(boolean is_plant) {
         this.is_plant = is_plant;
     }
@@ -137,11 +109,21 @@ public class Plant {
         this.user_comment = user_comment;
     }
 
-    public String getCurveName() {
+    /*public String getCurveName() {
         return curveName;
     }
 
     public void setCurveName(String curveName) {
         this.curveName = curveName;
+    }*/
+
+    public void setImages(List<Images> images) {
+        this.images = images;
     }
+
+    public void setSuggestions(List<Suggestions> suggestions) {
+        this.suggestions = suggestions;
+    }
+
+
 }

@@ -17,11 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.databinding.FragmentSavePlantBinding;
 import com.agostina.mr.plantagram2.model.plants.Images;
-import com.agostina.mr.plantagram2.model.plants.Plant;
+import com.agostina.mr.plantagram2.model.plants.Plants;
 import com.agostina.mr.plantagram2.model.plants.Suggestions;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class SavePlantFragment extends Fragment {
@@ -29,8 +30,8 @@ public class SavePlantFragment extends Fragment {
     private SavePlantViewModel viewModel;
     private RecyclerView imagesRV;
     private RecyclerView suggestionsRV;
-    private ArrayList<Images> images = new ArrayList<>();
-    private ArrayList<Suggestions> suggestions = new ArrayList<>();
+    private List<Images> images = new ArrayList<>();
+    private List<Suggestions> suggestions = new ArrayList<>();
     private TextInputEditText userInput;
 
 
@@ -85,15 +86,15 @@ public class SavePlantFragment extends Fragment {
     }
 
     private void savePlant(View view) {
-        Plant plant = viewModel.getIdentifiedPlant().getValue();
+        Plants plants = viewModel.getIdentifiedPlant().getValue();
         if (!Objects.requireNonNull(userInput.getText()).toString().equals("")) {
             String comments = userInput.getText().toString();
-            assert plant != null;
-            plant.setUserComment(comments);
+            assert plants != null;
+            plants.setUserComment(comments);
         } else {
             userInput.getText().toString();
         }
-        viewModel.savePlant(plant);
+        viewModel.savePlant(plants);
         Navigation.findNavController(view).navigate(R.id.plantagram_main_fragment);
     }
 }

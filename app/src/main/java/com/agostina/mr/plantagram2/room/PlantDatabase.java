@@ -8,9 +8,9 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.agostina.mr.plantagram2.model.User;
-import com.agostina.mr.plantagram2.model.plants.Plant;
+import com.agostina.mr.plantagram2.model.plants.Plants;
 
-@Database(entities = {User.class, Plant.class}, version =1 )
+@Database(entities = {User.class, Plants.class}, version =1 )
 @TypeConverters({Converters.class})
 
 public abstract class PlantDatabase extends RoomDatabase {

@@ -7,22 +7,22 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.agostina.mr.plantagram2.model.plants.Plant;
+import com.agostina.mr.plantagram2.model.plants.Plants;
 
 import java.util.List;
 
 @Dao
 public interface PlantDao {
     @Insert
-    public void insertPlant(Plant... plants);
-    @Query("SELECT * FROM plant ")
-    LiveData<List<Plant>> getAllPlants();
-    @Query("SELECT * FROM plant WHERE dbId = :databaseId")
-    LiveData<Plant> getPlant(int databaseId);
+    public void insertPlant(Plants... plants);
+    @Query("SELECT * FROM Plant ")
+    LiveData<List<Plants>> getAllPlants();
+    @Query("SELECT * FROM Plant WHERE dbId = :databaseId")
+    LiveData<Plants> getPlant(int databaseId);
     @Delete
-    public void deletePlant(Plant... plant);
+    public void deletePlant(Plants... plants);
     @Update
-    public void updatePlant(Plant... plants);
+    public void updatePlant(Plants... plants);
 
 
 }

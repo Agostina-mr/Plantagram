@@ -5,8 +5,10 @@ import android.os.Looper;
 
 import androidx.annotation.NonNull;
 import androidx.core.os.HandlerCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
-import com.agostina.mr.plantagram2.model.plants.Plant;
+import com.agostina.mr.plantagram2.model.plants.Plants;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,16 +16,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class PlantFirebaseRepository {
     private static PlantFirebaseRepository instance;
     private DatabaseReference myRef;
     private PlantLiveData plant;
     private final FirebaseDatabase firebaseDatabase;
     private final Handler mainThreadHandler;
+    private ArrayList<Plants> plantsArrayList = new ArrayList<>();
+    private MutableLiveData<ArrayList<Plants>> plantsMutableDataList = new MutableLiveData<>();
+
 
     private PlantFirebaseRepository() {
         firebaseDatabase = FirebaseDatabase.getInstance("https://plantagram-7693c-default-rtdb.europe-west1.firebasedatabase.app/");
-    mainThreadHandler = HandlerCompat.createAsync(Looper.getMainLooper());
+        mainThreadHandler = HandlerCompat.createAsync(Looper.getMainLooper());
     }
 
     public static synchronized PlantFirebaseRepository getInstance() {
@@ -37,41 +44,45 @@ public class PlantFirebaseRepository {
         myRef = firebaseDatabase.getReference().child("users").child(userId);
         plant = new PlantLiveData(myRef);
         //myRef = firebaseDatabase.getReference().child("plants");
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Plant plant = snapshot.getValue(Plant.class);
-             /*   for(DataSnapshot ds : snapshot.getChildren()) {
-                    for (DataSnapshot dSnapshot : ds.getChildren()) {
-                        Plant plant1 = dSnapshot.getValue(Plant.class);
-
-                    }
-                }*/}
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        };
-        myRef.addValueEventListener(valueEventListener);
     }
 
-    public void savePlantFirebase(Plant plant) {
-        myRef.push().child("plants").setValue(plant);
 
+    public void savePlantFirebase(Plants plants) {
+        myRef.push().child("plant").setValue(plants);
     }
 
     public PlantLiveData getPlant() {
         return plant;
     }
 
+    public LiveData<ArrayList<Plants>> getPlantsMutableDataList() {
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    for (DataSnapshot das : ds.getChildren()) {
+                        Plants plants = das.getValue(Plants.class);
 
+                        plantsArrayList.add(plants);
+                    }
+                }
+                plantsMutableDataList.postValue(plantsArrayList);
+            }
 
-    public Query getAllPlants(){
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        return plantsMutableDataList;
+    }
+
+    public Query getAllPlants() {
         return/* firebaseDatabase
                 .getReference()
                     .child("plants")
-                .limitToLast(50);*/myRef.child("plants").limitToLast(10);
+                .limitToLast(50);*/myRef.child("plant").limitToLast(10);
     }
 
 

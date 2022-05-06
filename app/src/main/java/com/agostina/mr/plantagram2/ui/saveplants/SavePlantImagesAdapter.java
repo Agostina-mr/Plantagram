@@ -14,13 +14,14 @@ import com.agostina.mr.plantagram2.model.plants.Images;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SavePlantImagesAdapter extends RecyclerView.Adapter<SavePlantImagesAdapter.ViewHolder> {
 
 
-    private ArrayList<Images> imagesArrayList = new ArrayList<>();
+    private List<Images> imagesArrayList = new ArrayList<>();
 
-    public SavePlantImagesAdapter(ArrayList<Images> plantImages) {
+    public SavePlantImagesAdapter(List<Images> plantImages) {
         this.imagesArrayList = plantImages;
 
     }
@@ -48,7 +49,7 @@ public class SavePlantImagesAdapter extends RecyclerView.Adapter<SavePlantImages
     }
 
 
-    public void updatePlantImages(ArrayList<Images> plantImages) {
+    public void updatePlantImages(List<Images> plantImages) {
         this.imagesArrayList.clear();
         this.imagesArrayList = plantImages;
         notifyDataSetChanged();

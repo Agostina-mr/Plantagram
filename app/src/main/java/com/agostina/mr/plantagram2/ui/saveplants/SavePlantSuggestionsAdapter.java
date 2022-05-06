@@ -5,22 +5,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.agostina.mr.plantagram2.R;
-import com.agostina.mr.plantagram2.model.plants.Images;
 import com.agostina.mr.plantagram2.model.plants.Suggestions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SavePlantSuggestionsAdapter extends RecyclerView.Adapter<SavePlantSuggestionsAdapter.ViewHolder>{
-    private ArrayList<Suggestions> suggestionsArrayList = new ArrayList<>();
+    private List<Suggestions> suggestionsArrayList = new ArrayList<>();
 
-    public SavePlantSuggestionsAdapter(ArrayList<Suggestions> suggestionsArrayList) {
+    public SavePlantSuggestionsAdapter(List<Suggestions> suggestionsArrayList) {
         this.suggestionsArrayList = suggestionsArrayList;
     }
 
@@ -47,7 +46,7 @@ public class SavePlantSuggestionsAdapter extends RecyclerView.Adapter<SavePlantS
         }
         return 0;
     }
-    public void updatePlantSuggestions(ArrayList<Suggestions> plantSuggestions) {
+    public void updatePlantSuggestions(List<Suggestions> plantSuggestions) {
         this.suggestionsArrayList.clear();
         this.suggestionsArrayList = plantSuggestions;
         notifyDataSetChanged();

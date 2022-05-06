@@ -8,8 +8,8 @@ public class Suggestions {
     @PrimaryKey(autoGenerate = true)
     private int dbId;
     private int id;
-    private String plant_name;
     private PlantDetails plant_details;
+    private String plant_name;
 
     public Suggestions() {
     }

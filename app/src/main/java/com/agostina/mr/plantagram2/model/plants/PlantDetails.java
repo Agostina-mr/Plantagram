@@ -4,19 +4,20 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity(tableName = "plant_details")
 public class PlantDetails {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private ArrayList<String> common_names;
+    private List<String> common_names;
     private String url;
     private WikiDescription wiki_description;
 
     public PlantDetails() {
     }
 
-    public ArrayList<String> getCommon_names() {
+    public List<String> getCommon_names() {
         return common_names;
     }
 

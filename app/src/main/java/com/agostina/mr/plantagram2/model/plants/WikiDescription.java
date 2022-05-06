@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "wiki_description")
 public class WikiDescription {
     @PrimaryKey(autoGenerate = true)
+    private String citation;
     private int id;
     private String value;
-    private String citation;
 
     public WikiDescription() {
     }

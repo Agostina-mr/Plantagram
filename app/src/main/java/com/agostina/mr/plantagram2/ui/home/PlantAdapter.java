@@ -12,16 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.agostina.mr.plantagram2.R;
-import com.agostina.mr.plantagram2.model.plants.Plant;
+import com.agostina.mr.plantagram2.model.plants.Plants;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
 public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> {
-    private List<Plant> plants;
+    private List<Plants> plants;
     private OnClickListener onClickListener;
 
-    public PlantAdapter(List<Plant> plants) {
+    public PlantAdapter(List<Plants> plants) {
         this.plants = plants;
     }
 
@@ -50,7 +50,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
         return 0;
     }
 
-    public void updatePlantList(final List<Plant> plants) {
+    public void updatePlantList(final List<Plants> plants) {
         this.plants.clear();
         this.plants = plants;
         notifyDataSetChanged();
