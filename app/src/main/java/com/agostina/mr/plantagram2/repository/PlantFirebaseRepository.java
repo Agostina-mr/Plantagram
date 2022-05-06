@@ -8,6 +8,7 @@ public class PlantFirebaseRepository {
     private static PlantFirebaseRepository instance;
     private DatabaseReference myRef;
     private PlantLiveData plant ;
+    private String userId;
 
     private PlantFirebaseRepository(){}
 
@@ -19,6 +20,7 @@ public class PlantFirebaseRepository {
     }
 
     public void init(String userId) {
+        this.userId = userId;
         myRef = FirebaseDatabase.getInstance("https://plantagram-7693c-default-rtdb.europe-west1.firebasedatabase.app/")
                 .getReference().child("users").child(userId);
 
@@ -26,8 +28,7 @@ public class PlantFirebaseRepository {
     }
 
     public void savePlantFirebase(Plant plant) {
-       myRef.setValue(plant);
-
+       myRef.push().child("plants").setValue(plant);
 
     }
 

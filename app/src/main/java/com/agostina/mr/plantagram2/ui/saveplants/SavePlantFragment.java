@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -93,6 +94,6 @@ public class SavePlantFragment extends Fragment {
             userInput.getText().toString();
         }
         viewModel.savePlant(plant);
-      //  Navigation.findNavController(view).navigate(R.id.plantagram_main_fragment);
+        Navigation.findNavController(view).navigate(R.id.plantagram_main_fragment);
     }
 }
