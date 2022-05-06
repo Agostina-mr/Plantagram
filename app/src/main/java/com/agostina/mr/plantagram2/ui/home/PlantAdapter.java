@@ -15,7 +15,6 @@ import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.model.plants.Plant;
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> {
@@ -57,6 +56,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
+
     class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView name;
        // private final TextView location;
@@ -72,10 +72,14 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
             picture = itemView.findViewById(R.id.image);
             description = itemView.findViewById(R.id.description);
            // location = itemView.findViewById(R.id.location);
+
         }
+
     }
 
     interface OnClickListener{
         void onClick();
     }
+
+
 }

@@ -139,11 +139,8 @@ dependencies {
     // Declare the dependency for the Firebase Authentication library
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-auth'
-    implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
+    implementation 'com.firebaseui:firebase-ui-auth:8.0.1'
 
-    // Required only if Facebook login support is required
-    // Find the latest Facebook SDK releases here: https://goo.gl/Ce5L94
-    //implementation 'com.facebook.android:facebook-android-sdk:8.x'
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:29.3.1')
 
@@ -151,4 +148,19 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-database'
 
-}
+   //firebase ui
+
+        // FirebaseUI for Firebase Realtime Database
+        implementation 'com.firebaseui:firebase-ui-database:8.0.1'
+
+        // FirebaseUI for Cloud Firestore
+        implementation 'com.firebaseui:firebase-ui-firestore:8.0.1'
+
+        // FirebaseUI for Firebase Auth
+        implementation 'com.firebaseui:firebase-ui-auth:8.0.1'
+
+        // FirebaseUI for Cloud Storage
+        implementation 'com.firebaseui:firebase-ui-storage:8.0.1'
+    }
+
+

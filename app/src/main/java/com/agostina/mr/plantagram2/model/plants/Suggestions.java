@@ -11,6 +11,9 @@ public class Suggestions {
     private String plant_name;
     private PlantDetails plant_details;
 
+    public Suggestions() {
+    }
+
     public int getId() {
         return id;
     }

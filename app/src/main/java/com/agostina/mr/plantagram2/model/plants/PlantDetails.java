@@ -13,6 +13,9 @@ public class PlantDetails {
     private String url;
     private WikiDescription wiki_description;
 
+    public PlantDetails() {
+    }
+
     public ArrayList<String> getCommon_names() {
         return common_names;
     }

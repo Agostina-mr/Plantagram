@@ -1,5 +1,6 @@
 package com.agostina.mr.plantagram2.model.plants;
 
+
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -7,7 +8,6 @@ import androidx.room.PrimaryKey;
 import com.agostina.mr.plantagram2.model.User;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 @Entity(tableName = "plant")
 public class Plant {
@@ -19,9 +19,12 @@ public class Plant {
     private boolean is_plant;
     private double is_plant_probability;
     private String user_comment;
+    private String curveName;
 
 
-    private Date date = new Date();
+    /*@Ignore
+    private MyDate date = new MyDate();*/
+    /*private Date date = new Date();*/
 
     private User user = new User();
 
@@ -71,14 +74,24 @@ public class Plant {
     public void setUserComment(String userComment) {
         this.user_comment = userComment;
     }
+/*
+    public MyDate getDate() {
+        return date;
+    }
+
+    public void setDate(MyDate date) {
+        this.date = date;
+    }*/
+/*
 
     public Date getDate() {
         return date;
     }
-
+*/
+/*
     public void setDate(Date date) {
         this.date = date;
-    }
+    }*/
 
     public User getUser() {
         return user;
@@ -122,5 +135,13 @@ public class Plant {
 
     public void setUser_comment(String user_comment) {
         this.user_comment = user_comment;
+    }
+
+    public String getCurveName() {
+        return curveName;
+    }
+
+    public void setCurveName(String curveName) {
+        this.curveName = curveName;
     }
 }

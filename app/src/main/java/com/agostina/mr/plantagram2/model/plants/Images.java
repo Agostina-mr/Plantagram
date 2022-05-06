@@ -13,6 +13,9 @@ public class Images {
         return file_name;
     }
 
+    public Images() {
+    }
+
     public String getUrl() {
         return url;
     }

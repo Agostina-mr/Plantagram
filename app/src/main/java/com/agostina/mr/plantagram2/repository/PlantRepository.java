@@ -64,7 +64,7 @@ public class PlantRepository {
     //api related
     public void requestIdentification(String photoPath) throws Exception {
         PlantIdApi plantIdApi = ServiceGenerator.getPlantApi();
-        String apiKey = "DUTfIkBzHladcugpM3x1b7wqGM7foXH9BxTTOIyvqAr1Rs2M0P";
+
         JsonObject data = Helper.formatData(photoPath);
         Call<PlantResponse> plantResponseCall = plantIdApi.getPlantIdentification(/*apiKey, data*/);
         plantResponseCall.enqueue(new Callback<PlantResponse>() {

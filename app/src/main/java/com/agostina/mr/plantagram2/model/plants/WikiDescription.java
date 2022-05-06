@@ -10,6 +10,9 @@ public class WikiDescription {
     private String value;
     private String citation;
 
+    public WikiDescription() {
+    }
+
     public String getValue() {
         return value;
     }

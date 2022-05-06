@@ -1,7 +1,10 @@
 package com.agostina.mr.plantagram2.model;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import com.agostina.mr.plantagram2.model.plants.Plant;
 
 @Entity(tableName = "user")
 public class User {
@@ -10,8 +13,19 @@ public class User {
     private String userName;
     private String password;
     private String image;
+    @Ignore
+    private Plant plant;
 
+    public User() {
+    }
 
+    public Plant getPlant() {
+        return plant;
+    }
+
+    public void setPlant(Plant plant) {
+        this.plant = plant;
+    }
 
     public String getUserName() {
         return userName;
