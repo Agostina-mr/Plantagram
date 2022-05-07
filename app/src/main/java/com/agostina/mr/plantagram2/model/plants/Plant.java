@@ -47,6 +47,8 @@ public class Plant {
         this.user_comment = user_comment;
     }
 
+
+
     public int getId() {
         return id;
     }

@@ -18,10 +18,13 @@ import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.databinding.FragmentSavePlantBinding;
 import com.agostina.mr.plantagram2.model.plants.Images;
 import com.agostina.mr.plantagram2.model.plants.Plant;
+import com.agostina.mr.plantagram2.model.plants.PlantPost;
 import com.agostina.mr.plantagram2.model.plants.Suggestions;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class SavePlantFragment extends Fragment {
@@ -86,14 +89,32 @@ public class SavePlantFragment extends Fragment {
 
     private void savePlant(View view) {
         Plant plant = viewModel.getIdentifiedPlant().getValue();
-        if (!Objects.requireNonNull(userInput.getText()).toString().equals("")) {
-            String comments = userInput.getText().toString();
-            assert plant != null;
-            plant.setUserComment(comments);
-        } else {
-            userInput.getText().toString();
+        PlantPost plantPost = new PlantPost();
+        plantPost.setUserName(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName());
+        //plantPost.setUserPicture(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).toString());
+        List<String> toAdd = new ArrayList<>();
+        assert plant != null;
+        for (Images images: plant.getImages()
+        ) {
+            toAdd.add(images.getUrl());
         }
-        viewModel.savePlant(plant);
+        plantPost.setPictures(toAdd);
+        String nameToAdd = "";
+        for (Suggestions suggestions: plant.getSuggestions()
+             ) {
+           nameToAdd = (nameToAdd.concat(suggestions.getPlant_name()));
+
+        }
+        plantPost.setPlantName(nameToAdd);
+        if (!Objects.requireNonNull(userInput.getText()).toString().equals("")) {
+            String comment = userInput.getText().toString();
+            assert plant != null;
+            plantPost.setAuthorComment(comment);
+        } else {
+            userInput.getText();
+        }
+
+        viewModel.savePlant(plantPost);
         Navigation.findNavController(view).navigate(R.id.plantagram_main_fragment);
     }
 }

@@ -37,9 +37,9 @@ public class HomeViewModel extends AndroidViewModel {
       return plantRepository.getAllPlants();
     }
 
-    public Query getPlantsQuery()
+    public Query getQuery()
     {
-       return plantFirebaseRepository.getAllPlants();
+       return plantFirebaseRepository.getQuery();
     }
 
 

@@ -6,7 +6,7 @@ import android.os.Looper;
 import androidx.annotation.NonNull;
 import androidx.core.os.HandlerCompat;
 
-import com.agostina.mr.plantagram2.model.plants.Plant;
+import com.agostina.mr.plantagram2.model.plants.PlantPost;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,19 +34,22 @@ public class PlantFirebaseRepository {
     }
 
     public void init(String userId) {
-        myRef = firebaseDatabase.getReference().child("users").child(userId);
+        myRef = firebaseDatabase.getReference();//.child("users").child(userId);
         plant = new PlantLiveData(myRef);
         //myRef = firebaseDatabase.getReference().child("plants");
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Plant plant = snapshot.getValue(Plant.class);
-             /*   for(DataSnapshot ds : snapshot.getChildren()) {
-                    for (DataSnapshot dSnapshot : ds.getChildren()) {
-                        Plant plant1 = dSnapshot.getValue(Plant.class);
 
-                    }
-                }*/}
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                   /* for (DataSnapshot das : ds.getChildren()) {
+                        PlantPost plantPost = das.getValue(PlantPost.class);
+                    }*/
+                    PlantPost plantPost = ds.getValue(PlantPost.class);
+                    assert plantPost != null;
+                    System.out.println(plantPost.getAuthorComment());
+
+                }}
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -54,24 +57,25 @@ public class PlantFirebaseRepository {
             }
         };
         myRef.addValueEventListener(valueEventListener);
-    }
-
-    public void savePlantFirebase(Plant plant) {
-        myRef.push().child("plants").setValue(plant);
 
     }
 
-    public PlantLiveData getPlant() {
+    public void savePlantFirebase(PlantPost plantPost) {
+        myRef.push().setValue(plantPost);
+
+    }
+
+   /* public PlantLiveData getPlant() {
         return plant;
-    }
+    }*/
 
 
 
-    public Query getAllPlants(){
-        return/* firebaseDatabase
-                .getReference()
-                    .child("plants")
-                .limitToLast(50);*/myRef.child("plants").limitToLast(10);
+    public Query getQuery(){
+
+        Query query= myRef
+                .limitToLast(50);
+        return query;
     }
 
 

@@ -12,50 +12,36 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.agostina.mr.plantagram2.R;
-import com.agostina.mr.plantagram2.model.plants.Plant;
-import com.bumptech.glide.Glide;
+import com.agostina.mr.plantagram2.model.plants.PlantPost;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 
-import java.util.List;
+public class PlantAdapter extends FirebaseRecyclerAdapter<PlantPost, PlantAdapter.ViewHolder> {
 
-public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> {
-    private List<Plant> plants;
-    private OnClickListener onClickListener;
+    /**
+     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
+     * {@link FirebaseRecyclerOptions} for configuration options.
+     *
+     * @param options
+     */
+    public PlantAdapter(@NonNull FirebaseRecyclerOptions<PlantPost> options) {
+        super(options);
+    }
+    @Override
+    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull PlantPost model) {
+        holder.name.setText(model.getUserName());
+        holder.description.setText(model.getPlantName());
 
-    public PlantAdapter(List<Plant> plants) {
-        this.plants = plants;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.plant_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.plant_list_item, parent, false);
+
         return new ViewHolder(view);
     }
-
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.name.setText(plants.get(position).getSuggestions().get(0).getPlant_name());
-        holder.description.setText(plants.get(position).getSuggestions().get(0).getPlant_details().getWiki_description().getValue());
-        Glide.with(holder.context).load(plants.get(position).getImages().get(0).getUrl()).into(holder.picture);
-
-
-    }
-
-    @Override
-    public int getItemCount() {
-        if (plants != null) {
-            return plants.size();
-        }
-        return 0;
-    }
-
-    public void updatePlantList(final List<Plant> plants) {
-        this.plants.clear();
-        this.plants = plants;
-        notifyDataSetChanged();
-    }
-
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView name;
@@ -76,10 +62,5 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
         }
 
     }
-
-    interface OnClickListener{
-        void onClick();
-    }
-
 
 }
