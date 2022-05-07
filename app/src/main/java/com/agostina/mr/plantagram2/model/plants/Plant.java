@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "plant")
-public class Plants {
+public class Plant {
     @PrimaryKey(autoGenerate = true)
     private int dbId;
     private int id;
@@ -22,15 +22,13 @@ public class Plants {
     @Ignore
     private List<Suggestions> suggestions = new ArrayList<>();
     private User user = new User();
-    private String userComment;
     private String user_comment;
-    //private String curveName;
 
-    public Plants() {
+    public Plant() {
     }
 
     @Ignore
-    public Plants(int id, ArrayList<Images> images, ArrayList<Suggestions> suggestions, boolean is_plant, double is_plant_probability) {
+    public Plant(int id, ArrayList<Images> images, ArrayList<Suggestions> suggestions, boolean is_plant, double is_plant_probability) {
         this.id = id;
         this.images = images;
         this.suggestions = suggestions;
@@ -39,13 +37,11 @@ public class Plants {
     }
 
     @Ignore
-    public Plants(ArrayList<Images> images, ArrayList<Suggestions> suggestions, String user_comment) {
+    public Plant(ArrayList<Images> images, ArrayList<Suggestions> suggestions, String user_comment) {
         this.images = images;
         this.suggestions = suggestions;
         this.user_comment = user_comment;
     }
-
-
 
     public int getId() {
         return id;

@@ -36,7 +36,6 @@ public class PlantFirebaseRepository {
     public void init(String userId) {
         myRef = firebaseDatabase.getReference();//.child("users").child(userId);
         plant = new PlantLiveData(myRef);
-        //myRef = firebaseDatabase.getReference().child("plants");
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -48,7 +47,6 @@ public class PlantFirebaseRepository {
                     PlantPost plantPost = ds.getValue(PlantPost.class);
                     assert plantPost != null;
                     System.out.println(plantPost.getAuthorComment());
-
                 }}
 
             @Override
@@ -57,24 +55,16 @@ public class PlantFirebaseRepository {
             }
         };
         myRef.addValueEventListener(valueEventListener);
-
     }
 
     public void savePlantFirebase(PlantPost plantPost) {
         myRef.push().setValue(plantPost);
-
     }
-
-   /* public PlantLiveData getPlant() {
-        return plant;
-    }*/
-
-
 
     public Query getQuery(){
 
         Query query= myRef
-                .limitToLast(50);
+                .limitToLast(50).orderByKey();
         return query;
     }
 

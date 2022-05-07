@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.model.plants.PlantPost;
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
@@ -30,8 +31,11 @@ public class PlantAdapter extends FirebaseRecyclerAdapter<PlantPost, PlantAdapte
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull PlantPost model) {
         holder.name.setText(model.getUserName());
-        holder.description.setText(model.getPlantName());
-
+        holder.description.setText(model.getPlantDescription());
+        Glide.with(holder.context).load(model.getUserPicture()).into(holder.userImage);
+        Glide.with(holder.context).load(model.getPicture()).override(600,600).into(holder.picture);
+        holder.authorsComment.setText(model.getAuthorComment());
+        holder.plantName.setText(model.getPlantName());
     }
 
     @NonNull
@@ -45,10 +49,12 @@ public class PlantAdapter extends FirebaseRecyclerAdapter<PlantPost, PlantAdapte
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView name;
-       // private final TextView location;
         private final TextView description;
         private final ImageView picture;
         private final Context context;
+        private final ImageView userImage;
+        private final TextView plantName;
+        private final TextView authorsComment;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -56,8 +62,10 @@ public class PlantAdapter extends FirebaseRecyclerAdapter<PlantPost, PlantAdapte
             context = itemView.getContext();
             name = itemView.findViewById(R.id.name);
             picture = itemView.findViewById(R.id.image);
+            plantName = itemView.findViewById(R.id.plant_name_post);
             description = itemView.findViewById(R.id.description);
-           // location = itemView.findViewById(R.id.location);
+            userImage = itemView.findViewById(R.id.user_image);
+            authorsComment = itemView.findViewById(R.id.authors_comment);
 
         }
 

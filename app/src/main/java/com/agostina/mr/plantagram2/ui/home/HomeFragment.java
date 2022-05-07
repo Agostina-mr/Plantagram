@@ -54,7 +54,10 @@ public class HomeFragment extends Fragment {
 
     private void setUpRV(View view) {
         plantsRecyclerView.hasFixedSize();
-        plantsRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        plantsRecyclerView.setLayoutManager(layoutManager);
         plantsRecyclerView.setAdapter(plantAdapter);
     }
 

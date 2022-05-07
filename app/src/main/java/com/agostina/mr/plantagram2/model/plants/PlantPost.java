@@ -5,7 +5,7 @@ import java.util.List;
 public class PlantPost {
     private String userName;
     private String userPicture;
-    private List<String> pictures;
+    private String picture;
     private String plantName;
     private String plantDescription;
     private String authorComment;
@@ -14,7 +14,6 @@ public class PlantPost {
 
     public PlantPost() {
     }
-
 
     public String getUserName() {
         return userName;
@@ -32,12 +31,12 @@ public class PlantPost {
         this.userPicture = userPicture;
     }
 
-    public List<String> getPictures() {
-        return pictures;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setPictures(List<String> pictures) {
-        this.pictures = pictures;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public String getPlantName() {

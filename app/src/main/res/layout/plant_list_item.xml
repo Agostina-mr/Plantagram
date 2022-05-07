@@ -37,7 +37,7 @@
         android:layout_height="300dp"
         android:layout_below="@id/linear_layout"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter" />
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/plant_name_post"
@@ -52,27 +52,23 @@
         android:textStyle="bold" />
     <!--text view to display likes count-->
     <TextView
+        android:id="@+id/authors_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/plant_name_post"
+        android:layout_margin="6dp"
+        android:padding="5dp"
+        android:textSize="11sp" />
+    <TextView
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/image"
+        android:layout_below="@+id/authors_comment"
         android:layout_marginStart="6dp"
         android:layout_marginTop="6dp"
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="6dp"
         android:padding="5dp"
         />
-
-    <!--text view to display the caption
-        in instagram post-->
-    <TextView
-        android:id="@+id/authors_comment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/description"
-        android:layout_margin="6dp"
-        android:padding="5dp"
-        android:textSize="11sp" />
-
 </RelativeLayout>
 

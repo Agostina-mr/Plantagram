@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.agostina.mr.plantagram2.model.plants.Plants;
+import com.agostina.mr.plantagram2.model.plants.Plant;
 import com.agostina.mr.plantagram2.model.plants.responses.PlantResponse;
 import com.agostina.mr.plantagram2.network.PlantIdApi;
 import com.agostina.mr.plantagram2.network.ServiceGenerator;
@@ -31,9 +31,9 @@ public class PlantRepository {
 
     private static PlantRepository instance;
     //api
-    private final MutableLiveData<Plants> identifiedPlant;
+    private final MutableLiveData<Plant> identifiedPlant;
     //room
-    private MutableLiveData<ArrayList<Plants>> allPlants;
+    private MutableLiveData<ArrayList<Plant>> allPlants;
     private PlantDao plantDao;
     private UserDao userDao;
     private ExecutorService executorService;
@@ -43,7 +43,7 @@ public class PlantRepository {
         plantDao = database.plantDao();
         userDao = database.userDao();
         executorService = Executors.newFixedThreadPool(2);
-        identifiedPlant = new MutableLiveData<Plants>();
+        identifiedPlant = new MutableLiveData<Plant>();
     }
 
     public static synchronized PlantRepository getInstance(Application application) {
@@ -53,11 +53,11 @@ public class PlantRepository {
         return instance;
     }
 
-    public LiveData<List<Plants>> getAllPlants() {
+    public LiveData<List<Plant>> getAllPlants() {
         return plantDao.getAllPlants();
     }
 
-    public void insert(Plants plants) {
+    public void insert(Plant plants) {
         executorService.execute(() -> plantDao.insertPlant(plants));
     }
 
@@ -87,7 +87,7 @@ public class PlantRepository {
         });
     }
 
-    public LiveData<Plants> getIdentifiedPlant() {
+    public LiveData<Plant> getIdentifiedPlant() {
         return identifiedPlant;
     }
 

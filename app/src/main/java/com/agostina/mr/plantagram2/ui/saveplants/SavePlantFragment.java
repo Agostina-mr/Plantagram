@@ -32,8 +32,8 @@ public class SavePlantFragment extends Fragment {
     private SavePlantViewModel viewModel;
     private RecyclerView imagesRV;
     private RecyclerView suggestionsRV;
-    private ArrayList<Images> images = new ArrayList<>();
-    private ArrayList<Suggestions> suggestions = new ArrayList<>();
+    private List<Images> images = new ArrayList<>();
+    private List<Suggestions> suggestions = new ArrayList<>();
     private TextInputEditText userInput;
 
 
@@ -89,23 +89,23 @@ public class SavePlantFragment extends Fragment {
 
     private void savePlant(View view) {
         Plant plant = viewModel.getIdentifiedPlant().getValue();
+        assert plant != null;
         PlantPost plantPost = new PlantPost();
         plantPost.setUserName(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName());
-        //plantPost.setUserPicture(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).toString());
-        List<String> toAdd = new ArrayList<>();
-        assert plant != null;
-        for (Images images: plant.getImages()
-        ) {
-            toAdd.add(images.getUrl());
+        if (FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()!=null)
+        {
+            plantPost.setUserPicture(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).toString());
         }
-        plantPost.setPictures(toAdd);
+        String toAdd = plant.getImages().get(0).getUrl();
+        plantPost.setPicture(toAdd);
         String nameToAdd = "";
         for (Suggestions suggestions: plant.getSuggestions()
              ) {
-           nameToAdd = (nameToAdd.concat(suggestions.getPlant_name()));
+           nameToAdd = (nameToAdd.concat(suggestions.getPlant_name()).concat(" / "));
 
         }
         plantPost.setPlantName(nameToAdd);
+        plantPost.setPlantDescription(plant.getSuggestions().get(0).getPlant_details().getWiki_description().getValue());
         if (!Objects.requireNonNull(userInput.getText()).toString().equals("")) {
             String comment = userInput.getText().toString();
             assert plant != null;
@@ -113,7 +113,6 @@ public class SavePlantFragment extends Fragment {
         } else {
             userInput.getText();
         }
-
         viewModel.savePlant(plantPost);
         Navigation.findNavController(view).navigate(R.id.plantagram_main_fragment);
     }

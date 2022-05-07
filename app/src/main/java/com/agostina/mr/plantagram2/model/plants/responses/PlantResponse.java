@@ -1,7 +1,7 @@
 package com.agostina.mr.plantagram2.model.plants.responses;
 
 import com.agostina.mr.plantagram2.model.plants.Images;
-import com.agostina.mr.plantagram2.model.plants.Plants;
+import com.agostina.mr.plantagram2.model.plants.Plant;
 import com.agostina.mr.plantagram2.model.plants.Suggestions;
 
 import java.util.ArrayList;
@@ -13,9 +13,9 @@ public class PlantResponse {
     private boolean is_plant;
     private double is_plant_probability;
 
-    public Plants getPlant()
+    public Plant getPlant()
     {
-        return new Plants(id, images, suggestions, is_plant, is_plant_probability);
+        return new Plant(id, images, suggestions, is_plant, is_plant_probability);
     }
     public ArrayList<Suggestions> getSuggestions() {
         return suggestions;
