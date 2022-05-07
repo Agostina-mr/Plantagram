@@ -8,28 +8,22 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.databinding.FragmentHomeBinding;
-import com.agostina.mr.plantagram2.model.plants.Plants;
+import com.agostina.mr.plantagram2.model.plants.PlantPost;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private HomeViewModel homeViewModel;
-    private PlantAdapter plantAdapter;
-     private ArrayList<Plants> plantsList = new ArrayList<>();
+     private PlantAdapter plantAdapter;
     private RecyclerView plantsRecyclerView;
-
-    private FirebaseRecyclerOptions<Plants> options;
+    private FirebaseRecyclerOptions<PlantPost> options;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -39,7 +33,12 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         plantsRecyclerView = root.findViewById(R.id.recycler_view);
-
+        options =
+                new FirebaseRecyclerOptions.Builder<PlantPost>()
+                        .setQuery(homeViewModel.getQuery(), PlantPost.class).setLifecycleOwner(this)
+                        .build();
+        plantAdapter = new PlantAdapter(options);
+        plantAdapter.startListening();
         setUpRV(root);
         return root;
     }
@@ -48,20 +47,14 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-      //  homeViewModel.getAllPlants();
-        homeViewModel.getAllPlants().observe(getViewLifecycleOwner(), plants -> {
-            plantsList.addAll(plants);
-            plantAdapter.updatePlantList(plantsList);
-        });
         setUpRV(view);
+        plantAdapter.startListening();
+
     }
 
     private void setUpRV(View view) {
         plantsRecyclerView.hasFixedSize();
         plantsRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-         plantAdapter = new PlantAdapter(plantsList);
-         Observer<List<Plants>> update = plantAdapter::updatePlantList;
-         homeViewModel.getAllPlants().observe(getViewLifecycleOwner(), update);
         plantsRecyclerView.setAdapter(plantAdapter);
     }
 
@@ -71,8 +64,4 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
 }

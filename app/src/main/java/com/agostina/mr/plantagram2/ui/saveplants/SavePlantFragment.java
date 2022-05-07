@@ -17,9 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.databinding.FragmentSavePlantBinding;
 import com.agostina.mr.plantagram2.model.plants.Images;
-import com.agostina.mr.plantagram2.model.plants.Plants;
+import com.agostina.mr.plantagram2.model.plants.Plant;
+import com.agostina.mr.plantagram2.model.plants.PlantPost;
 import com.agostina.mr.plantagram2.model.plants.Suggestions;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +32,8 @@ public class SavePlantFragment extends Fragment {
     private SavePlantViewModel viewModel;
     private RecyclerView imagesRV;
     private RecyclerView suggestionsRV;
-    private List<Images> images = new ArrayList<>();
-    private List<Suggestions> suggestions = new ArrayList<>();
+    private ArrayList<Images> images = new ArrayList<>();
+    private ArrayList<Suggestions> suggestions = new ArrayList<>();
     private TextInputEditText userInput;
 
 
@@ -86,15 +88,33 @@ public class SavePlantFragment extends Fragment {
     }
 
     private void savePlant(View view) {
-        Plants plants = viewModel.getIdentifiedPlant().getValue();
-        if (!Objects.requireNonNull(userInput.getText()).toString().equals("")) {
-            String comments = userInput.getText().toString();
-            assert plants != null;
-            plants.setUserComment(comments);
-        } else {
-            userInput.getText().toString();
+        Plant plant = viewModel.getIdentifiedPlant().getValue();
+        PlantPost plantPost = new PlantPost();
+        plantPost.setUserName(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName());
+        //plantPost.setUserPicture(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).toString());
+        List<String> toAdd = new ArrayList<>();
+        assert plant != null;
+        for (Images images: plant.getImages()
+        ) {
+            toAdd.add(images.getUrl());
         }
-        viewModel.savePlant(plants);
+        plantPost.setPictures(toAdd);
+        String nameToAdd = "";
+        for (Suggestions suggestions: plant.getSuggestions()
+             ) {
+           nameToAdd = (nameToAdd.concat(suggestions.getPlant_name()));
+
+        }
+        plantPost.setPlantName(nameToAdd);
+        if (!Objects.requireNonNull(userInput.getText()).toString().equals("")) {
+            String comment = userInput.getText().toString();
+            assert plant != null;
+            plantPost.setAuthorComment(comment);
+        } else {
+            userInput.getText();
+        }
+
+        viewModel.savePlant(plantPost);
         Navigation.findNavController(view).navigate(R.id.plantagram_main_fragment);
     }
 }

@@ -6,7 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.agostina.mr.plantagram2.model.plants.Plants;
+import com.agostina.mr.plantagram2.model.plants.Plant;
+import com.agostina.mr.plantagram2.model.plants.PlantPost;
 import com.agostina.mr.plantagram2.repository.PlantFirebaseRepository;
 import com.agostina.mr.plantagram2.repository.PlantRepository;
 import com.agostina.mr.plantagram2.repository.UserRepository;
@@ -24,12 +25,12 @@ public class SavePlantViewModel extends AndroidViewModel {
        plantFirebaseRepository = PlantFirebaseRepository.getInstance();
     }
 
-    public LiveData<Plants> getIdentifiedPlant() {
+    public LiveData<Plant> getIdentifiedPlant() {
     return plantRepository.getIdentifiedPlant();
     }
 
-    public void savePlant(Plants plants) {
+    public void savePlant(PlantPost plant) {
      //   plantRepository.insert(plant);
-        plantFirebaseRepository.savePlantFirebase(plants);
+        plantFirebaseRepository.savePlantFirebase(plant);
     }
 }
