@@ -16,6 +16,8 @@ import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.databinding.FragmentHomeBinding;
 import com.agostina.mr.plantagram2.model.plants.PlantPost;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.firebase.ui.database.SnapshotParser;
+import com.google.firebase.database.DataSnapshot;
 
 public class HomeFragment extends Fragment {
 
@@ -35,7 +37,19 @@ public class HomeFragment extends Fragment {
         plantsRecyclerView = root.findViewById(R.id.recycler_view);
         options =
                 new FirebaseRecyclerOptions.Builder<PlantPost>()
-                        .setQuery(homeViewModel.getQuery(), PlantPost.class).setLifecycleOwner(this)
+                        .setQuery(homeViewModel.getQuery(), new SnapshotParser<PlantPost>() {
+                            @NonNull
+                            @Override
+                            public PlantPost parseSnapshot(@NonNull DataSnapshot snapshot) {
+                                PlantPost plantPost = new PlantPost();
+                                for (DataSnapshot ds : snapshot.getChildren()) {
+
+                                            plantPost = ds.getValue(PlantPost.class);
+
+                                    }
+                                return plantPost;
+                            }
+                        }).setLifecycleOwner(this)
                         .build();
         plantAdapter = new PlantAdapter(options);
         plantAdapter.startListening();
@@ -43,13 +57,10 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         setUpRV(view);
         plantAdapter.startListening();
-
     }
 
     private void setUpRV(View view) {

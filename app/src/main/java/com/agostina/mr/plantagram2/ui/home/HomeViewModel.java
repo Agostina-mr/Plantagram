@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.agostina.mr.plantagram2.model.plants.Plant;
 import com.agostina.mr.plantagram2.repository.PlantFirebaseRepository;
 import com.agostina.mr.plantagram2.repository.PlantRepository;
+import com.agostina.mr.plantagram2.repository.UserRepository;
 import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class HomeViewModel extends AndroidViewModel {
     private MutableLiveData<List<Plant>>  plantList;
     private PlantRepository plantRepository;
     private PlantFirebaseRepository plantFirebaseRepository;
+    private UserRepository userRepository;
 
 
     public HomeViewModel(@NonNull Application application) {
@@ -28,6 +30,7 @@ public class HomeViewModel extends AndroidViewModel {
         plantList = new MutableLiveData<>();
         plantFirebaseRepository = PlantFirebaseRepository.getInstance();
         plantList.setValue(new ArrayList<>());
+        userRepository = UserRepository.getInstance(application);
 
     }
 

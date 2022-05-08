@@ -22,8 +22,6 @@ public class MainActivityViewModel extends AndroidViewModel {
     }
 
     public void init() {
-        System.out.println("-----++++++++++++++++++----");
-
         String userUid = userRepository.getCurrentUser().getValue().getUid();
         plantFirebaseRepository.init(userUid);
     }

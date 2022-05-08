@@ -10,18 +10,15 @@ import com.agostina.mr.plantagram2.model.plants.Plant;
 import com.agostina.mr.plantagram2.model.plants.PlantPost;
 import com.agostina.mr.plantagram2.repository.PlantFirebaseRepository;
 import com.agostina.mr.plantagram2.repository.PlantRepository;
-import com.agostina.mr.plantagram2.repository.UserRepository;
 
 public class SavePlantViewModel extends AndroidViewModel {
 
     private final PlantRepository plantRepository;
-    private final UserRepository userRepository;
     private final PlantFirebaseRepository plantFirebaseRepository;
 
     public SavePlantViewModel(@NonNull Application application) {
         super(application);
         plantRepository = PlantRepository.getInstance(application);
-       userRepository = UserRepository.getInstance(application);
        plantFirebaseRepository = PlantFirebaseRepository.getInstance();
     }
 
@@ -30,7 +27,6 @@ public class SavePlantViewModel extends AndroidViewModel {
     }
 
     public void savePlant(PlantPost plant) {
-     //   plantRepository.insert(plant);
         plantFirebaseRepository.savePlantFirebase(plant);
     }
 }

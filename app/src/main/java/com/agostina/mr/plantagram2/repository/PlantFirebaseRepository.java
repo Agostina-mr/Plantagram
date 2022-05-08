@@ -20,6 +20,7 @@ public class PlantFirebaseRepository {
     private PlantLiveData plant;
     private final FirebaseDatabase firebaseDatabase;
     private final Handler mainThreadHandler;
+    private String userUid;
 
     private PlantFirebaseRepository() {
         firebaseDatabase = FirebaseDatabase.getInstance("https://plantagram-7693c-default-rtdb.europe-west1.firebasedatabase.app/");
@@ -33,20 +34,24 @@ public class PlantFirebaseRepository {
         return instance;
     }
 
-    public void init(String userId) {
-        myRef = firebaseDatabase.getReference();//.child("users").child(userId);
+    public void init(String userUid) {
+
+        this.userUid = userUid;
+        myRef = firebaseDatabase.getReference();//.child(userId);
         plant = new PlantLiveData(myRef);
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                   /* for (DataSnapshot das : ds.getChildren()) {
-                        PlantPost plantPost = das.getValue(PlantPost.class);
-                    }*/
-                    PlantPost plantPost = ds.getValue(PlantPost.class);
-                    assert plantPost != null;
-                    System.out.println(plantPost.getAuthorComment());
+                   for (DataSnapshot das : ds.getChildren()) {
+                     //   PlantPost plantPost = das.getValue(PlantPost.class);
+                    //    assert plantPost != null;
+                      // System.out.println(plantPost.getAuthorComment());
+
+                    }
+                    //PlantPost plantPost = ds.getValue(PlantPost.class);
+
                 }}
 
             @Override
@@ -58,13 +63,20 @@ public class PlantFirebaseRepository {
     }
 
     public void savePlantFirebase(PlantPost plantPost) {
-        myRef.push().setValue(plantPost);
+        myRef.child("posts").child(userUid).push().setValue(plantPost);
     }
 
     public Query getQuery(){
+        //see posts from all users
+     Query query= myRef.child("posts");
+        return query;
+        //specific user
 
-        Query query= myRef
-                .limitToLast(50).orderByKey();
+    }
+
+    public Query getSpecificUserQuery(){
+        ///create new firebase adapter withoud  parser iteration
+          Query query = myRef.child("posts").child(userUid);//.orderByChild(userUid);
         return query;
     }
 

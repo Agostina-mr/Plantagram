@@ -56,7 +56,6 @@ public class PlantAdapter extends FirebaseRecyclerAdapter<PlantPost, PlantAdapte
         private final TextView plantName;
         private final TextView authorsComment;
 
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             context = itemView.getContext();
