@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
+import com.agostina.mr.plantagram2.model.plants.PlantPost;
 import com.agostina.mr.plantagram2.repository.PlantFirebaseRepository;
 import com.google.firebase.database.Query;
 
@@ -23,4 +24,6 @@ public class CommunityViewModel extends AndroidViewModel {
     }
 
 
+    public void updatePlantPost(PlantPost plantPost) {
+    }
 }

@@ -25,6 +25,8 @@ public class CommunityPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, Co
      *
      * @param options
      */
+    private OnClickListener onClickListener;
+
     public CommunityPlantAdapter(@NonNull FirebaseRecyclerOptions<PlantPost> options) {
         super(options);
     }
@@ -36,6 +38,11 @@ public class CommunityPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, Co
         Glide.with(holder.context).load(model.getPicture()).override(600,600).into(holder.picture);
         holder.authorsComment.setText(model.getAuthorComment());
         holder.plantName.setText(model.getPlantName());
+
+    }
+
+    public void setOnClickListener(OnClickListener listener) {
+        this.onClickListener = listener;
     }
 
     @NonNull
@@ -47,7 +54,7 @@ public class CommunityPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, Co
         return new ViewHolder(view);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+     class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView name;
         private final TextView description;
         private final ImageView picture;
@@ -55,6 +62,7 @@ public class CommunityPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, Co
         private final ImageView userImage;
         private final TextView plantName;
         private final TextView authorsComment;
+        private final ImageView likesImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,8 +73,16 @@ public class CommunityPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, Co
             description = itemView.findViewById(R.id.description);
             userImage = itemView.findViewById(R.id.user_image);
             authorsComment = itemView.findViewById(R.id.authors_comment);
+            likesImage = itemView.findViewById(R.id.likes_heart);
+            likesImage.setOnClickListener(v->{
+                likesImage.setImageResource(R.drawable.heart);
+                onClickListener.onClick(getItem(getBindingAdapterPosition()));
+            });
 
         }
+    }
+    public interface OnClickListener{
+        void onClick(PlantPost plantPost);
 
     }
 

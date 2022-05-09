@@ -33,7 +33,7 @@ public class PlantFirebaseRepository {
 
     public Query getAllPostsQuery() {
         //this method is called by the view model, then the view model is called in the fragment to create the adapter
-        Query query = myRef.child("posts");
+        Query query = myRef.child("posts").orderByKey();
         return query;
     }
 
