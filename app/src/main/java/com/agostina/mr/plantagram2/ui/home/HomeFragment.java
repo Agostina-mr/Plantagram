@@ -43,9 +43,7 @@ public class HomeFragment extends Fragment {
                             public PlantPost parseSnapshot(@NonNull DataSnapshot snapshot) {
                                 PlantPost plantPost = new PlantPost();
                                 for (DataSnapshot ds : snapshot.getChildren()) {
-
-                                            plantPost = ds.getValue(PlantPost.class);
-
+                                    plantPost = ds.getValue(PlantPost.class);
                                     }
                                 return plantPost;
                             }
