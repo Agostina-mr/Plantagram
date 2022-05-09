@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.agostina.mr.plantagram2.ui.home.HomeFragment"
+        android:name="com.agostina.mr.plantagram2.ui.community.CommunityFragment"
         android:label="My garden"
         tools:layout="@layout/fragment_home" >
     </fragment>
@@ -37,6 +37,10 @@
             android:id="@+id/action_create_post_to_save_plant_fragment"
             app:destination="@id/save_plant_fragment" />
     </fragment>
+    <fragment
+        android:id="@+id/garden_fragment"
+        android:name="com.agostina.mr.plantagram2.ui.garden.GardenFragment"
+        tools:layout="@layout/fragment_garden"/>
 
     <fragment
         android:id="@+id/save_plant_fragment"

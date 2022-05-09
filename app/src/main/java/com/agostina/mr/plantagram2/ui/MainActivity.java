@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 
 import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.databinding.ActivityMainBinding;
+import com.agostina.mr.plantagram2.ui.signin.SignInActivity;
 
 public class MainActivity extends AppCompatActivity {
 

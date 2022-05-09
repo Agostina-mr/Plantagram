@@ -1,4 +1,4 @@
-package com.agostina.mr.plantagram2.ui.home;
+package com.agostina.mr.plantagram2.ui.community;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,50 +15,39 @@ import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.databinding.FragmentHomeBinding;
 import com.agostina.mr.plantagram2.model.plants.PlantPost;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.firebase.ui.database.SnapshotParser;
 import com.google.firebase.database.DataSnapshot;
 
-public class HomeFragment extends Fragment {
+public class CommunityFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    private HomeViewModel homeViewModel;
-     private PlantAdapter plantAdapter;
+    private CommunityViewModel viewModel;
+     private CommunityPlantAdapter plantAdapter;
     private RecyclerView plantsRecyclerView;
     private FirebaseRecyclerOptions<PlantPost> options;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        viewModel = new ViewModelProvider(this).get(CommunityViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         plantsRecyclerView = root.findViewById(R.id.recycler_view);
         options =
                 new FirebaseRecyclerOptions.Builder<PlantPost>()
-                        .setQuery(homeViewModel.getQuery(), new SnapshotParser<PlantPost>() {
-                            @NonNull
-                            @Override
-                            public PlantPost parseSnapshot(@NonNull DataSnapshot snapshot) {
-                                PlantPost plantPost = new PlantPost();
-                                for (DataSnapshot ds : snapshot.getChildren()) {
-                                    plantPost = ds.getValue(PlantPost.class);
-                                    }
-                                return plantPost;
-                            }
+                        .setQuery(viewModel.getAllPostsQuery(), snapshot -> {
+                            PlantPost plantPost = new PlantPost();
+                            for (DataSnapshot ds : snapshot.getChildren()) {
+                                plantPost = ds.getValue(PlantPost.class);
+                                }
+                            return plantPost;
                         }).setLifecycleOwner(this)
                         .build();
-        plantAdapter = new PlantAdapter(options);
+        plantAdapter = new CommunityPlantAdapter(options);
         plantAdapter.startListening();
         setUpRV(root);
         return root;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        setUpRV(view);
-        plantAdapter.startListening();
-    }
 
     private void setUpRV(View view) {
         plantsRecyclerView.hasFixedSize();

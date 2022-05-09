@@ -1,4 +1,4 @@
-package com.agostina.mr.plantagram2.ui;
+package com.agostina.mr.plantagram2.ui.signin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.agostina.mr.plantagram2.R;
+import com.agostina.mr.plantagram2.ui.MainActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
 import com.firebase.ui.auth.IdpResponse;

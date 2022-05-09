@@ -1,4 +1,4 @@
-package com.agostina.mr.plantagram2.ui;
+package com.agostina.mr.plantagram2.ui.signin;
 
 import android.app.Application;
 

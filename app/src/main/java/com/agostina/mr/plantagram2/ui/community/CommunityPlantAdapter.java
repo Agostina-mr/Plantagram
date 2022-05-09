@@ -1,4 +1,4 @@
-package com.agostina.mr.plantagram2.ui.home;
+package com.agostina.mr.plantagram2.ui.community;
 
 
 import android.content.Context;
@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
-public class PlantAdapter extends FirebaseRecyclerAdapter<PlantPost, PlantAdapter.ViewHolder> {
+public class CommunityPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, CommunityPlantAdapter.ViewHolder> {
 
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
@@ -25,7 +25,7 @@ public class PlantAdapter extends FirebaseRecyclerAdapter<PlantPost, PlantAdapte
      *
      * @param options
      */
-    public PlantAdapter(@NonNull FirebaseRecyclerOptions<PlantPost> options) {
+    public CommunityPlantAdapter(@NonNull FirebaseRecyclerOptions<PlantPost> options) {
         super(options);
     }
     @Override

@@ -23,7 +23,6 @@ public class PlantFirebaseRepository {
     }
 
     public void init(String userUid) {
-
         this.userUid = userUid;
         myRef = firebaseDatabase.getReference();
     }

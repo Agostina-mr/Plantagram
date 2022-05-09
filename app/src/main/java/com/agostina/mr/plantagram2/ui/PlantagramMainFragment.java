@@ -22,8 +22,7 @@ public class PlantagramMainFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     private PlantagramPagerAdapter adapter;
-    private final String[] titles = new String[] {"My garden", "Community","New Plant"};
-    public static final int PAGE_NUM = 2;
+    private final String[] titles = new String[] {"Community", "Garden","New Plant"};
     public PlantagramMainFragment() {
         // Required empty public constructor
     }
