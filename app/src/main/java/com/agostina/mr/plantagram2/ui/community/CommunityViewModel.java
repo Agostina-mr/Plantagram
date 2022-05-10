@@ -10,6 +10,8 @@ import com.agostina.mr.plantagram2.repository.PlantFirebaseRepository;
 import com.agostina.mr.plantagram2.repository.UserRepository;
 import com.google.firebase.database.Query;
 
+import java.util.List;
+
 public class CommunityViewModel extends AndroidViewModel {
 
     private PlantFirebaseRepository plantFirebaseRepository;
@@ -37,5 +39,21 @@ public class CommunityViewModel extends AndroidViewModel {
             userUid= userRepository.getCurrentUser().getValue().getUid();
         }
        return userUid;
+    }
+
+    public void updateLikes(PlantPost plantPost) {
+        List<String> updatedLikes = plantPost.getLikes();
+        if (!plantPost.doesUserLikeIt(plantPost.getViewBy())){
+            updatedLikes.add(getCurrentUser());
+            plantPost.setLikes(updatedLikes);
+            updatePlantPost(plantPost);
+        }
+        else{
+            updatedLikes.remove(getCurrentUser());
+            plantPost.setLikes(updatedLikes);
+            updatePlantPost(plantPost);
+
+        }
+
     }
 }

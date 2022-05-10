@@ -15,6 +15,7 @@ public class PlantPost {
     private String authorComment;
     private List<String> comments;
     private List<String> likes;
+    private String viewBy;
 
     public PlantPost() {
         likes = new ArrayList<>();
@@ -100,5 +101,19 @@ public class PlantPost {
         this.likes = likes;
     }
 
+    public String getViewBy() {
+        return viewBy;
+    }
 
-}
+    public void setViewBy(String viewBy) {
+        this.viewBy = viewBy;
+    }
+
+    public boolean doesUserLikeIt(String userUid){
+        return likes.stream().anyMatch(s -> s.equals(userUid));
+
+        }
+    }
+
+
+

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,16 +17,12 @@ import com.agostina.mr.plantagram2.model.plants.PlantPost;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 
-import java.util.List;
-
 public class CommunityFragment extends Fragment {
-
     private FragmentHomeBinding binding;
     private CommunityViewModel viewModel;
     private CommunityPlantAdapter plantAdapter;
     private RecyclerView plantsRecyclerView;
     private FirebaseRecyclerOptions<PlantPost> options;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(CommunityViewModel.class);
@@ -41,19 +36,16 @@ public class CommunityFragment extends Fragment {
                             for (DataSnapshot ds : snapshot.getChildren()) {
                                 plantPost = ds.getValue(PlantPost.class);
                                 plantPost.setPostId(ds.getKey());
+                                plantPost.setViewBy(viewModel.getCurrentUser());
                             }
                             return plantPost;
                         }).setLifecycleOwner(this)
                         .build();
         plantAdapter = new CommunityPlantAdapter(options);
         plantAdapter.setOnClickListener(plantPost -> {
-            List<String> updatedLikes = plantPost.getLikes();
-            updatedLikes.add(viewModel.getCurrentUser());
-            plantPost.setLikes(updatedLikes);
-            Toast.makeText(getContext(), plantPost.getAuthorComment(), Toast.LENGTH_SHORT).show();
-            viewModel.updatePlantPost(plantPost);
-        });
+                viewModel.updateLikes(plantPost);
 
+        });
         plantAdapter.startListening();
         setUpRV(root);
         return root;
