@@ -28,16 +28,21 @@ public class PlantFirebaseRepository {
     }
 
     public void savePlantFirebase(PlantPost plantPost) {
+        plantPost.setAuthorsId(userUid);
         myRef.child("posts").child(userUid).push().setValue(plantPost);
     }
 
     public Query getAllPostsQuery() {
         //this method is called by the view model, then the view model is called in the fragment to create the adapter
-        Query query = myRef.child("posts").orderByKey();
+        Query query = myRef.child("posts");
         return query;
     }
 
     public Query getSpecificUserQuery() { Query query = myRef.child("posts").child(userUid);  return query; }
 
 
+    public void updatePlantPost(PlantPost plantPost) {
+
+        myRef.child("posts").child(plantPost.getAuthorsId()).child(plantPost.getPostId()).setValue(plantPost);
+    }
 }

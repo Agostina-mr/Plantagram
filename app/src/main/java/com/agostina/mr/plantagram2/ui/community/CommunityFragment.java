@@ -18,11 +18,13 @@ import com.agostina.mr.plantagram2.model.plants.PlantPost;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 
+import java.util.List;
+
 public class CommunityFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private CommunityViewModel viewModel;
-     private CommunityPlantAdapter plantAdapter;
+    private CommunityPlantAdapter plantAdapter;
     private RecyclerView plantsRecyclerView;
     private FirebaseRecyclerOptions<PlantPost> options;
 
@@ -37,13 +39,17 @@ public class CommunityFragment extends Fragment {
                         .setQuery(viewModel.getAllPostsQuery(), snapshot -> {
                             PlantPost plantPost = new PlantPost();
                             for (DataSnapshot ds : snapshot.getChildren()) {
-                                    plantPost = ds.getValue(PlantPost.class);
-                                }
+                                plantPost = ds.getValue(PlantPost.class);
+                                plantPost.setPostId(ds.getKey());
+                            }
                             return plantPost;
                         }).setLifecycleOwner(this)
                         .build();
         plantAdapter = new CommunityPlantAdapter(options);
         plantAdapter.setOnClickListener(plantPost -> {
+            List<String> updatedLikes = plantPost.getLikes();
+            updatedLikes.add(viewModel.getCurrentUser());
+            plantPost.setLikes(updatedLikes);
             Toast.makeText(getContext(), plantPost.getAuthorComment(), Toast.LENGTH_SHORT).show();
             viewModel.updatePlantPost(plantPost);
         });
@@ -53,12 +59,10 @@ public class CommunityFragment extends Fragment {
         return root;
     }
 
-
     private void setUpRV(View view) {
         plantsRecyclerView.hasFixedSize();
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
-       // layoutManager.setReverseLayout(true);
-        //layoutManager.setStackFromEnd(true);
+        layoutManager.setReverseLayout(true);
         plantsRecyclerView.setLayoutManager(layoutManager);
         plantsRecyclerView.setAdapter(plantAdapter);
     }

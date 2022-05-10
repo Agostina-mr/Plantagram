@@ -75,6 +75,7 @@ public class CommunityPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, Co
             authorsComment = itemView.findViewById(R.id.authors_comment);
             likesImage = itemView.findViewById(R.id.likes_heart);
             likesImage.setOnClickListener(v->{
+
                 likesImage.setImageResource(R.drawable.heart);
                 onClickListener.onClick(getItem(getBindingAdapterPosition()));
             });

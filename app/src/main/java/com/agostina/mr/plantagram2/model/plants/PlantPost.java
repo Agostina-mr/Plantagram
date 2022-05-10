@@ -1,8 +1,12 @@
 package com.agostina.mr.plantagram2.model.plants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlantPost {
+
+    private String postId;
+    private String authorsId;
     private String userName;
     private String userPicture;
     private String picture;
@@ -10,9 +14,26 @@ public class PlantPost {
     private String plantDescription;
     private String authorComment;
     private List<String> comments;
-    private int likes;
+    private List<String> likes;
 
     public PlantPost() {
+        likes = new ArrayList<>();
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
+
+    public String getAuthorsId() {
+        return authorsId;
+    }
+
+    public void setAuthorsId(String authorsId) {
+        this.authorsId = authorsId;
     }
 
     public String getUserName() {
@@ -71,11 +92,13 @@ public class PlantPost {
         this.comments = comments;
     }
 
-    public int getLikes() {
+    public List<String> getLikes() {
         return likes;
     }
 
-    public void setLikes(int likes) {
+    public void setLikes(List<String> likes) {
         this.likes = likes;
     }
+
+
 }
