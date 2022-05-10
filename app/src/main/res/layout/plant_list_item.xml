@@ -37,7 +37,7 @@
         android:layout_height="300dp"
         android:layout_below="@id/linear_layout"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"/>'
+        android:scaleType="centerCrop" />'
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,19 +46,34 @@
         android:layout_below="@+id/image">
         <ImageView
             android:id="@+id/likes_heart"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
             android:layout_margin="5dp"
             android:src="@drawable/heart_empty"
             />
     <TextView
         android:id="@+id/idTVLikes"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
         android:padding="5dp"
         android:textColor="@color/black"
         android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/comments_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/comment"
+            />
+        <TextView
+            android:id="@+id/comments_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
     </LinearLayout>
 
 

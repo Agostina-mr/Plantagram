@@ -32,6 +32,7 @@ public class CommunityPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, Co
         Glide.with(holder.context).load(model.getPicture()).override(600,600).into(holder.picture);
         holder.authorsComment.setText(model.getAuthorComment());
         holder.plantName.setText(model.getPlantName());
+        holder.commentsImage.setImageResource(R.drawable.comment);
         holder.likesCount.setText(String.valueOf(model.getLikes().size()));
 
         if (model.doesUserLikeIt(model.getViewBy())){
@@ -66,6 +67,7 @@ public class CommunityPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, Co
         private final TextView authorsComment;
         private final ImageView likesImage;
         private final TextView likesCount;
+        private ImageView commentsImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -78,6 +80,8 @@ public class CommunityPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, Co
             authorsComment = itemView.findViewById(R.id.authors_comment);
             likesCount = itemView.findViewById(R.id.idTVLikes);
             likesImage = itemView.findViewById(R.id.likes_heart);
+            commentsImage = itemView.findViewById(R.id.comments_image);
+
 
             likesImage.setOnClickListener(v->{
                 onClickListener.onClick(getItem(getBindingAdapterPosition()));
