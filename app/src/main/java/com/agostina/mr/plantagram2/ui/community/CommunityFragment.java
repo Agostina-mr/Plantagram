@@ -42,10 +42,11 @@ public class CommunityFragment extends Fragment {
                         }).setLifecycleOwner(this)
                         .build();
         plantAdapter = new CommunityPlantAdapter(options);
+
         plantAdapter.setOnClickListener(plantPost -> {
                 viewModel.updateLikes(plantPost);
-
         });
+        plantAdapter.setOnCommentsListener(plantPost -> {/*TODO:*/});
         plantAdapter.startListening();
         setUpRV(root);
         return root;

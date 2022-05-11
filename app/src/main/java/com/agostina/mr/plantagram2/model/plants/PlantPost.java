@@ -1,5 +1,7 @@
 package com.agostina.mr.plantagram2.model.plants;
 
+import com.agostina.mr.plantagram2.model.plants.responses.Comment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +15,13 @@ public class PlantPost {
     private String plantName;
     private String plantDescription;
     private String authorComment;
-    private List<String> comments;
+    private List<Comment> comments;
     private List<String> likes;
     private String viewBy;
 
     public PlantPost() {
         likes = new ArrayList<>();
+        comments = new ArrayList<>();
     }
 
     public String getPostId() {
@@ -85,11 +88,11 @@ public class PlantPost {
         this.authorComment = authorComment;
     }
 
-    public List<String> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(List<String> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 
@@ -111,7 +114,6 @@ public class PlantPost {
 
     public boolean doesUserLikeIt(String userUid){
         return likes.stream().anyMatch(s -> s.equals(userUid));
-
         }
     }
 

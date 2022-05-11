@@ -20,9 +20,16 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 public class CommunityPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, CommunityPlantAdapter.ViewHolder> {
 
     private OnClickListener onClickListener;
+    private OnClickListener onCommentsListener;
 
     public CommunityPlantAdapter(@NonNull FirebaseRecyclerOptions<PlantPost> options) {
         super(options);
+    }
+    public void setOnClickListener(OnClickListener listener) {
+        this.onClickListener = listener;
+    }
+    public void setOnCommentsListener(OnClickListener listener) {
+        this.onCommentsListener = listener;
     }
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull PlantPost model) {
@@ -34,6 +41,7 @@ public class CommunityPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, Co
         holder.plantName.setText(model.getPlantName());
         holder.commentsImage.setImageResource(R.drawable.comment);
         holder.likesCount.setText(String.valueOf(model.getLikes().size()));
+        holder.commentsCount.setText(String.valueOf(model.getComments().size()));
 
         if (model.doesUserLikeIt(model.getViewBy())){
             holder.likesImage.setImageResource(R.drawable.heart);
@@ -45,9 +53,7 @@ public class CommunityPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, Co
 
     }
 
-    public void setOnClickListener(OnClickListener listener) {
-        this.onClickListener = listener;
-    }
+
 
     @NonNull
     @Override
@@ -57,7 +63,9 @@ public class CommunityPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, Co
         return new ViewHolder(view);
     }
 
-     class ViewHolder extends RecyclerView.ViewHolder {
+
+
+    class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView name;
         private final TextView description;
         private final ImageView picture;
@@ -68,6 +76,7 @@ public class CommunityPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, Co
         private final ImageView likesImage;
         private final TextView likesCount;
         private ImageView commentsImage;
+        private final TextView commentsCount;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,17 +90,19 @@ public class CommunityPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, Co
             likesCount = itemView.findViewById(R.id.idTVLikes);
             likesImage = itemView.findViewById(R.id.likes_heart);
             commentsImage = itemView.findViewById(R.id.comments_image);
-
-
-            likesImage.setOnClickListener(v->{
-                onClickListener.onClick(getItem(getBindingAdapterPosition()));
-            });
-
+            commentsCount = itemView.findViewById(R.id.comments_count);
+            commentsImage.setOnClickListener(view -> onCommentsListener.onClick(getItem(getBindingAdapterPosition())));
+            likesImage.setOnClickListener(v-> onClickListener.onClick(getItem(getBindingAdapterPosition())));
         }
     }
     public interface OnClickListener{
         void onClick(PlantPost plantPost);
-
     }
+
+    public interface OnCommentsListener{
+        void onCommentsClick(PlantPost plantPost);
+    }
+
+
 
 }
