@@ -1,18 +1,29 @@
 package com.agostina.mr.plantagram2.repository;
 
-import com.agostina.mr.plantagram2.model.plants.PlantPost;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
+import com.agostina.mr.plantagram2.model.post.PlantPost;
+import com.agostina.mr.plantagram2.model.post.Comment;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class PlantFirebaseRepository {
     private static PlantFirebaseRepository instance;
     private DatabaseReference myRef;
     private final FirebaseDatabase firebaseDatabase;
     private String userUid;
+    private String userName;
+    private final MutableLiveData<PlantPost> specificPost;
 
     private PlantFirebaseRepository() {
         firebaseDatabase = FirebaseDatabase.getInstance("https://plantagram-7693c-default-rtdb.europe-west1.firebasedatabase.app/");
+        specificPost = new MutableLiveData<PlantPost>();
     }
 
     public static synchronized PlantFirebaseRepository getInstance() {
@@ -22,8 +33,9 @@ public class PlantFirebaseRepository {
         return instance;
     }
 
-    public void init(String userUid) {
+    public void init(String userUid, String userName) {
         this.userUid = userUid;
+        this.userName = userName;
         myRef = firebaseDatabase.getReference();
     }
 
@@ -41,8 +53,35 @@ public class PlantFirebaseRepository {
     public Query getSpecificUserQuery() { Query query = myRef.child("posts").child(userUid);  return query; }
 
 
-    public void updatePlantPost(PlantPost plantPost) {
+    public void updateLikes(PlantPost plantPost) {
 
         myRef.child("posts").child(plantPost.getAuthorsId()).child(plantPost.getPostId()).setValue(plantPost);
+    }
+
+    public void setSpecificPost(PlantPost plantPost){
+        myRef.child("posts").child(plantPost.getAuthorsId()).child(plantPost.getPostId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                System.out.println(snapshot.getValue(PlantPost.class).getUserName());
+                specificPost.setValue(snapshot.getValue(PlantPost.class));
+
+                System.out.println(specificPost.getValue().getPostId());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    public LiveData<PlantPost> getOnlySpecificPost(){
+        return specificPost;
+    }
+
+    public void updateComments(PlantPost plantPost, String comment) {
+        Comment newComment = new Comment(userUid,userName, comment);
+        plantPost.getComments().add(newComment);
+        myRef.child("posts").child(plantPost.getAuthorsId()).child(plantPost.getPostId()).setValue(plantPost);
+
     }
 }

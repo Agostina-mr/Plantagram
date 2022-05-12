@@ -1,4 +1,4 @@
-package com.agostina.mr.plantagram2.model.plants.responses;
+package com.agostina.mr.plantagram2.model.responses;
 
 import com.agostina.mr.plantagram2.model.plants.Images;
 import com.agostina.mr.plantagram2.model.plants.Plant;

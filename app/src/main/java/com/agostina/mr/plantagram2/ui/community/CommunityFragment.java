@@ -8,12 +8,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.databinding.FragmentHomeBinding;
-import com.agostina.mr.plantagram2.model.plants.PlantPost;
+import com.agostina.mr.plantagram2.model.post.PlantPost;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 
@@ -46,7 +47,11 @@ public class CommunityFragment extends Fragment {
         plantAdapter.setOnClickListener(plantPost -> {
                 viewModel.updateLikes(plantPost);
         });
-        plantAdapter.setOnCommentsListener(plantPost -> {/*TODO:*/});
+        plantAdapter.setOnCommentsListener(plantPost -> {
+            System.out.println(plantPost.getAuthorComment()+"-------------------------------------------------");
+            viewModel.openCommentsSection(plantPost);
+         Navigation.findNavController(root).navigate(R.id.single_post_fragment);
+        });
         plantAdapter.startListening();
         setUpRV(root);
         return root;

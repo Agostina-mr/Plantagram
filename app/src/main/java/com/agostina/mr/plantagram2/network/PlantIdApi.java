@@ -1,6 +1,6 @@
 package com.agostina.mr.plantagram2.network;
 
-import com.agostina.mr.plantagram2.model.plants.responses.PlantResponse;
+import com.agostina.mr.plantagram2.model.responses.PlantResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

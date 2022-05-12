@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.agostina.mr.plantagram2.R;
-import com.agostina.mr.plantagram2.model.plants.PlantPost;
+import com.agostina.mr.plantagram2.model.post.PlantPost;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -98,11 +98,4 @@ public class CommunityPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, Co
     public interface OnClickListener{
         void onClick(PlantPost plantPost);
     }
-
-    public interface OnCommentsListener{
-        void onCommentsClick(PlantPost plantPost);
-    }
-
-
-
 }

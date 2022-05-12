@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <LinearLayout
+        android:id="@+id/linear_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="4dp">
+        <!--circle image for displaying the user image-->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_image1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            />
+        <!--text view for displaying user name-->
+        <TextView
+            android:id="@+id/name1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="3dp"
+            android:padding="3dp"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
+
+    <!--image view to display the post image-->
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@id/linear_layout1"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/likes1"
+        android:layout_below="@+id/image1">
+
+        <ImageView
+            android:id="@+id/comments_image1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/comment"
+            />
+        <TextView
+            android:id="@+id/comments_count1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/comments_recycler_view1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/likes1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_below="@id/comments_recycler_view1">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/comment_users_input"
+            android:layout_width="315dp"
+            android:layout_height="match_parent"
+            android:background="@color/corn"/>
+
+        <ImageButton
+            android:id="@+id/sent_comment_button"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/white"
+            android:src="@drawable/send1" />
+    </LinearLayout>
+</RelativeLayout>

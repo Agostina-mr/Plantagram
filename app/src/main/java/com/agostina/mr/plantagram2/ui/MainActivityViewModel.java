@@ -23,7 +23,8 @@ public class MainActivityViewModel extends AndroidViewModel {
 
     public void init() {
         String userUid = userRepository.getCurrentUser().getValue().getUid();
-        plantFirebaseRepository.init(userUid);
+        String userName = userRepository.getCurrentUser().getValue().getDisplayName();
+        plantFirebaseRepository.init(userUid, userName);
     }
 
     public LiveData<FirebaseUser> getCurrentUser(){

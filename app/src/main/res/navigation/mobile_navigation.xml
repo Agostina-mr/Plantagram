@@ -10,6 +10,10 @@
         android:name="com.agostina.mr.plantagram2.ui.community.CommunityFragment"
         android:label="My garden"
         tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_single_post_fragment"
+            app:destination="@id/single_post_fragment"/>
+
     </fragment>
 
     <fragment
@@ -52,6 +56,7 @@
             android:id="@+id/action_save_plant_fragment_to_nav_home"
             app:destination="@id/nav_home" />
     </fragment>
+
     <fragment
         android:id="@+id/plantagram_main_fragment"
         android:name="com.agostina.mr.plantagram2.ui.PlantagramMainFragment"
@@ -60,6 +65,15 @@
             android:id="@+id/action_plantagram_main_fragment_to_create_post"
             app:destination="@id/create_post" />
     </fragment>
+
+
+    <fragment
+        android:id="@+id/single_post_fragment"
+        android:name="com.agostina.mr.plantagram2.ui.community.SinglePostFragment"
+        tools:layout="@layout/fragment_single_post"/>
+
+
+
 
 
 

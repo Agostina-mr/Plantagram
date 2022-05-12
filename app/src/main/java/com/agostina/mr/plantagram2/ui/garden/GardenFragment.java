@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.databinding.FragmentGardenBinding;
-import com.agostina.mr.plantagram2.model.plants.PlantPost;
+import com.agostina.mr.plantagram2.model.post.PlantPost;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 

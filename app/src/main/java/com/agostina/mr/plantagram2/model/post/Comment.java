@@ -1,4 +1,4 @@
-package com.agostina.mr.plantagram2.model.plants.responses;
+package com.agostina.mr.plantagram2.model.post;
 
 public class Comment {
 
@@ -6,6 +6,16 @@ public class Comment {
     private String commentsAuthorId;
     private String commentsAuthorName;
     private String body;
+
+
+    public Comment() {
+    }
+
+    public Comment(String commentsAuthorId, String commentsAuthorName, String body) {
+        this.commentsAuthorId = commentsAuthorId;
+        this.commentsAuthorName = commentsAuthorName;
+        this.body = body;
+    }
 
     public String getPostAuthorId() {
         return postAuthorId;

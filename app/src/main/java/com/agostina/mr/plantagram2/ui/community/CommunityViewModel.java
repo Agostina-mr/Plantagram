@@ -4,8 +4,10 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
-import com.agostina.mr.plantagram2.model.plants.PlantPost;
+import com.agostina.mr.plantagram2.model.post.PlantPost;
 import com.agostina.mr.plantagram2.repository.PlantFirebaseRepository;
 import com.agostina.mr.plantagram2.repository.UserRepository;
 import com.google.firebase.database.Query;
@@ -16,11 +18,15 @@ public class CommunityViewModel extends AndroidViewModel {
 
     private PlantFirebaseRepository plantFirebaseRepository;
     private UserRepository userRepository;
+    private MutableLiveData<PlantPost> singlePlantPost;
 
     public CommunityViewModel(@NonNull Application application) {
         super(application);
         plantFirebaseRepository = PlantFirebaseRepository.getInstance();
         userRepository = UserRepository.getInstance(application);
+        singlePlantPost = new MutableLiveData<PlantPost>();
+
+
     }
 
     public Query getAllPostsQuery()
@@ -30,7 +36,7 @@ public class CommunityViewModel extends AndroidViewModel {
 
 
     public void updatePlantPost(PlantPost plantPost) {
-        plantFirebaseRepository.updatePlantPost(plantPost);
+        plantFirebaseRepository.updateLikes(plantPost);
     }
 
     public String getCurrentUser() {
@@ -52,12 +58,19 @@ public class CommunityViewModel extends AndroidViewModel {
             updatedLikes.remove(getCurrentUser());
             plantPost.setLikes(updatedLikes);
             updatePlantPost(plantPost);
-
         }
-
     }
 
-    public void updateComments(PlantPost plantPost) {
+    public void openCommentsSection(PlantPost plantPost) {
+        plantFirebaseRepository.setSpecificPost(plantPost);
+        }
+
+    public LiveData<PlantPost> getSinglePlantPost() {
+        return plantFirebaseRepository.getOnlySpecificPost();
+    }
+
+    public void addComment(PlantPost plantPost, String comment) {
+       plantFirebaseRepository.updateComments(plantPost, comment);
 
     }
 }

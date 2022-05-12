@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.agostina.mr.plantagram2.model.plants.Plant;
-import com.agostina.mr.plantagram2.model.plants.responses.PlantResponse;
+import com.agostina.mr.plantagram2.model.responses.PlantResponse;
 import com.agostina.mr.plantagram2.network.PlantIdApi;
 import com.agostina.mr.plantagram2.network.ServiceGenerator;
 import com.agostina.mr.plantagram2.room.PlantDao;

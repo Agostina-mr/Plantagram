@@ -1,12 +1,9 @@
-package com.agostina.mr.plantagram2.model.plants;
-
-import com.agostina.mr.plantagram2.model.plants.responses.Comment;
+package com.agostina.mr.plantagram2.model.post;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlantPost {
-
     private String postId;
     private String authorsId;
     private String userName;

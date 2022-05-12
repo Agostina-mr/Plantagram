@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.agostina.mr.plantagram2.model.plants.Plant;
-import com.agostina.mr.plantagram2.model.plants.PlantPost;
+import com.agostina.mr.plantagram2.model.post.PlantPost;
 import com.agostina.mr.plantagram2.repository.PlantFirebaseRepository;
 import com.agostina.mr.plantagram2.repository.PlantRepository;
 

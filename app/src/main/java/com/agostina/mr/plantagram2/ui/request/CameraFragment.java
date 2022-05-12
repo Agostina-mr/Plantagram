@@ -132,6 +132,11 @@ public class CameraFragment extends Fragment
                     @Override
                     public void onError(@NonNull ImageCaptureException exception) {
                         Toast.makeText(getContext(), "Not saved", Toast.LENGTH_SHORT).show();
+                        try {
+                            photoFile.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                 }
