@@ -12,14 +12,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.model.post.PlantPost;
+import com.agostina.mr.plantagram2.ui.community.CommunityPlantAdapter;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 public class GardenPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, GardenPlantAdapter.ViewHolder> {
+    private CommunityPlantAdapter.OnClickListener onClickListener;
+    private CommunityPlantAdapter.OnClickListener onCommentsListener;
 
     public GardenPlantAdapter(@NonNull FirebaseRecyclerOptions<PlantPost> options) {
         super(options);
+    }
+
+    public void setOnClickListener(CommunityPlantAdapter.OnClickListener listener) {
+        this.onClickListener = listener;
+    }
+
+    public void setOnCommentsListener(CommunityPlantAdapter.OnClickListener listener) {
+        this.onCommentsListener = listener;
     }
 
     @Override
@@ -27,9 +38,17 @@ public class GardenPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, Garde
         holder.name.setText(model.getUserName());
         holder.description.setText(model.getPlantDescription());
         Glide.with(holder.context).load(model.getUserPicture()).into(holder.userImage);
-        Glide.with(holder.context).load(model.getPicture()).override(600,600).into(holder.picture);
+        Glide.with(holder.context).load(model.getPicture()).override(600, 600).into(holder.picture);
         holder.authorsComment.setText(model.getAuthorComment());
         holder.plantName.setText(model.getPlantName());
+        holder.likesCount.setText(String.valueOf(model.getLikes().size()));
+        holder.commentsCount.setText(String.valueOf(model.getComments().size()));
+
+        if (model.doesUserLikeIt(model.getViewBy())) {
+            holder.likesImage.setImageResource(R.drawable.heart);
+        } else {
+            holder.likesImage.setImageResource(R.drawable.heart_empty);
+        }
     }
 
     @NonNull
@@ -49,6 +68,10 @@ public class GardenPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, Garde
         private final ImageView userImage;
         private final TextView plantName;
         private final TextView authorsComment;
+        private final ImageView likesImage;
+        private final TextView likesCount;
+        private ImageView commentsImage;
+        private final TextView commentsCount;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -60,6 +83,17 @@ public class GardenPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, Garde
             description = itemView.findViewById(R.id.description);
             userImage = itemView.findViewById(R.id.user_image);
             authorsComment = itemView.findViewById(R.id.authors_comment);
+            likesCount = itemView.findViewById(R.id.idTVLikes);
+            likesImage = itemView.findViewById(R.id.likes_heart);
+            commentsImage = itemView.findViewById(R.id.comments_image);
+            commentsCount = itemView.findViewById(R.id.comments_count);
+            commentsImage.setOnClickListener(view -> onCommentsListener.onClick(getItem(getBindingAdapterPosition())));
+            likesImage.setOnClickListener(v -> onClickListener.onClick(getItem(getBindingAdapterPosition())));
         }
     }
+    public interface OnClickListener {
+        void onClick(PlantPost plantPost);
+    }
+
 }
+

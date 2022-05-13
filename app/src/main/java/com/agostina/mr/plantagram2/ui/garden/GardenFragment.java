@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +35,14 @@ public class GardenFragment extends Fragment {
         recyclerView = root.findViewById(R.id.recycler_view);
         options = new FirebaseRecyclerOptions.Builder<PlantPost>().setQuery(viewModel.getSpecificQuery(), PlantPost.class).setLifecycleOwner(this).build();
         adapter = new GardenPlantAdapter(options);
+
+        adapter.setOnClickListener(plantPost -> {
+            viewModel.updateLikes(plantPost);
+        });
+        adapter.setOnCommentsListener(plantPost -> {
+            viewModel.openCommentsSection(plantPost);
+            Navigation.findNavController(root).navigate(R.id.single_post_fragment);
+        });
         setUpRV(root);
         return root;
     }

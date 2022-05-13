@@ -50,10 +50,7 @@ public class CommunityPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, Co
             holder.likesImage.setImageResource(R.drawable.heart_empty);
         }
 
-
     }
-
-
 
     @NonNull
     @Override

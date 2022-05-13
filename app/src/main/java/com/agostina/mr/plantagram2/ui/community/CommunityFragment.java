@@ -52,7 +52,6 @@ public class CommunityFragment extends Fragment {
             viewModel.openCommentsSection(plantPost);
          Navigation.findNavController(root).navigate(R.id.single_post_fragment);
         });
-        plantAdapter.startListening();
         setUpRV(root);
         return root;
     }

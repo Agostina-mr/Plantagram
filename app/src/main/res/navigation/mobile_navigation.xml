@@ -44,7 +44,11 @@
     <fragment
         android:id="@+id/garden_fragment"
         android:name="com.agostina.mr.plantagram2.ui.garden.GardenFragment"
-        tools:layout="@layout/fragment_garden"/>
+        tools:layout="@layout/fragment_garden">
+        <action
+            android:id="@+id/action_garden_fragment_to_single_post_fragment"
+            app:destination="@id/single_post_fragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/save_plant_fragment"
