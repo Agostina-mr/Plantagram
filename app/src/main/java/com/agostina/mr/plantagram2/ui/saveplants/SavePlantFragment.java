@@ -101,7 +101,7 @@ public class SavePlantFragment extends Fragment {
         String nameToAdd = "";
         for (Suggestions suggestions: plant.getSuggestions()
              ) {
-           nameToAdd = (nameToAdd.concat(suggestions.getPlant_name()).concat(" / "));
+       nameToAdd = (nameToAdd.concat(suggestions.getPlant_name()).concat(" | "));
 
         }
         plantPost.setPlantName(nameToAdd);

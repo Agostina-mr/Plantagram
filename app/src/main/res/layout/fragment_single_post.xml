@@ -39,6 +39,7 @@
         android:layout_below="@id/linear_layout1"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -67,7 +68,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/comments_recycler_view1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="237dp"
         android:layout_below="@+id/likes1" />
 
     <LinearLayout
@@ -79,16 +80,18 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/comment_users_input"
-            android:layout_width="315dp"
-            android:layout_height="match_parent"
-            android:background="@color/corn"/>
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="8"
+            />
 
-        <ImageButton
+        <Button
             android:id="@+id/sent_comment_button"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@color/white"
-            android:src="@drawable/send1" />
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="2"
+            android:text="Send"
+            />
     </LinearLayout>
+
 </RelativeLayout>

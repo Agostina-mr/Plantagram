@@ -59,13 +59,10 @@ public class PlantFirebaseRepository {
     }
 
     public void setSpecificPost(PlantPost plantPost){
-        myRef.child("posts").child(plantPost.getAuthorsId()).child(plantPost.getPostId()).addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.child("posts").child(plantPost.getAuthorsId()).child(plantPost.getPostId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                System.out.println(snapshot.getValue(PlantPost.class).getUserName());
                 specificPost.setValue(snapshot.getValue(PlantPost.class));
-
-                System.out.println(specificPost.getValue().getPostId());
             }
 
             @Override
