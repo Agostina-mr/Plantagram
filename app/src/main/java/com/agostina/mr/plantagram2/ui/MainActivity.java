@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                viewModel.signOut();
                 return true;
             case R.id.action_settings:
+              //  Navigation.findNavController(this, R.id.users_profile_fragment);
+                navController.navigate(R.id.users_profile_fragment);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

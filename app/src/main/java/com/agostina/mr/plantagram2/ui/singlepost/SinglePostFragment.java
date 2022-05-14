@@ -1,4 +1,4 @@
-package com.agostina.mr.plantagram2.ui.community;
+package com.agostina.mr.plantagram2.ui.singlepost;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +19,7 @@ import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.databinding.FragmentSinglePostBinding;
 import com.agostina.mr.plantagram2.model.post.Comment;
 import com.agostina.mr.plantagram2.model.post.PlantPost;
+import com.agostina.mr.plantagram2.ui.community.CommunityViewModel;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 

@@ -1,4 +1,4 @@
-package com.agostina.mr.plantagram2.ui.community;
+package com.agostina.mr.plantagram2.ui.singlepost;
 
 import android.view.LayoutInflater;
 import android.view.View;

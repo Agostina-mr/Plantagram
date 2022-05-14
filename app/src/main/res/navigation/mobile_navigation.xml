@@ -68,13 +68,20 @@
         <action
             android:id="@+id/action_plantagram_main_fragment_to_create_post"
             app:destination="@id/create_post" />
+        <action
+            android:id="@+id/action_plantagram_main_fragment_to_users_profile_fragment2"
+            app:destination="@id/users_profile_fragment" />
     </fragment>
 
 
     <fragment
         android:id="@+id/single_post_fragment"
-        android:name="com.agostina.mr.plantagram2.ui.community.SinglePostFragment"
+        android:name="com.agostina.mr.plantagram2.ui.singlepost.SinglePostFragment"
         tools:layout="@layout/fragment_single_post"/>
+    <fragment
+        android:id="@+id/users_profile_fragment"
+        android:name="com.agostina.mr.plantagram2.ui.usersprofile.UsersProfileFragment"
+        tools:layout="@layout/fragment_users_profile"/>
 
 
 
