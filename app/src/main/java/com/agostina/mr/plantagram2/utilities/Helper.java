@@ -34,4 +34,8 @@ public class Helper {
             throw new IllegalStateException("could not read file " + file, e);
         }
     }
+    public static String postKeyGenerator(String userName){
+        int random = (int) ((Math.random() * (20000 - 1000)) + 1000);
+       return userName.concat(String.valueOf(random));
+    }
 }

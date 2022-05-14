@@ -19,13 +19,14 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.databinding.FragmentUsersProfileBinding;
+import com.bumptech.glide.Glide;
 
 public class UsersProfileFragment extends Fragment {
 
     private FragmentUsersProfileBinding binding;
     private UsersProfileViewModel viewModel;
     private ImageView userProfileImage;
-    private Uri uri;
+    private Uri uri = null;
 
 
 
@@ -38,24 +39,26 @@ public class UsersProfileFragment extends Fragment {
         userProfileImage = root.findViewById(R.id.users_profile_picture);
         EditText userName = root.findViewById(R.id.users_profile_name);
         Button changeProfile = root.findViewById(R.id.change_profile);
-        userName.setText(viewModel.getCurrentUser().getValue().getDisplayName());
 
-        changeProfile.setOnClickListener(view -> {
-            String newUserName = userName.getText().toString();
-          changeProfile(uri, newUserName ) ;
+        viewModel.getCurrentUser().observe(getViewLifecycleOwner(), firebaseUser -> {
+            userName.setText(firebaseUser.getDisplayName());
+            if (uri==null){
+                Glide.with(this).load(firebaseUser.getPhotoUrl())
+                        .into(userProfileImage);
+            }
+
         });
 
 
+        changeProfile.setOnClickListener(view -> {
+            String newUserName = userName.getText().toString();
+            changeProfile(uri, newUserName ) ;
+        });
 
 
-        userProfileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(openGallery,1000);
-            }
-
-
+        userProfileImage.setOnClickListener(view -> {
+            Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(openGallery,1000);
         });
 
 
@@ -66,8 +69,11 @@ public class UsersProfileFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1000){
             if (resultCode == Activity.RESULT_OK){
-                uri = data.getData();
-                userProfileImage.setImageURI(uri);
+                if (data != null) {
+                    uri = data.getData();
+                }
+                Glide.with(this).load(uri)
+                        .into(userProfileImage);
             }
         }
     }

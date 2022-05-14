@@ -48,7 +48,6 @@ public class CommunityFragment extends Fragment {
                 viewModel.updateLikes(plantPost);
         });
         plantAdapter.setOnCommentsListener(plantPost -> {
-            System.out.println(plantPost.getAuthorComment()+"-------------------------------------------------");
             viewModel.openCommentsSection(plantPost);
          Navigation.findNavController(root).navigate(R.id.single_post_fragment);
         });
@@ -59,7 +58,8 @@ public class CommunityFragment extends Fragment {
     private void setUpRV(View view) {
         plantsRecyclerView.hasFixedSize();
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
-        layoutManager.setReverseLayout(true);
+      //  layoutManager.setReverseLayout(true);
+      //  layoutManager.setStackFromEnd(true);
         plantsRecyclerView.setLayoutManager(layoutManager);
         plantsRecyclerView.setAdapter(plantAdapter);
     }

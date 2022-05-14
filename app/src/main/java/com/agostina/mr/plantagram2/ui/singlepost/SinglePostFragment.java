@@ -55,6 +55,7 @@ public class SinglePostFragment extends Fragment {
         inputLayout = root.findViewById(R.id.comment_users_input);
         sendCommentButton = root.findViewById(R.id.sent_comment_button);
         commentsRecyclerView = root.findViewById(R.id.comments_recycler_view1);
+        commentsCount.setText(R.string.comments);
 
 
         viewModel.getSinglePlantPost().observe(getViewLifecycleOwner(), plantPost1 -> {
@@ -62,7 +63,7 @@ public class SinglePostFragment extends Fragment {
             name.setText(plantPost.getUserName());
             Glide.with(this).load(plantPost.getPicture()).override(600, 600).into(picture);
             Glide.with(this).load(plantPost.getUserPicture()).into(userImage);
-            commentsCount.setText(R.string.comments);
+
 
             setUpImagesRecyclerView(root, plantPost1.getComments());
 

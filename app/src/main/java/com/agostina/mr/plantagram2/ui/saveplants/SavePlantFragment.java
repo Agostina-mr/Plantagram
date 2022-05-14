@@ -98,7 +98,7 @@ public class SavePlantFragment extends Fragment {
         }
         String toAdd = plant.getImages().get(0).getUrl();
         plantPost.setPicture(toAdd);
-        String nameToAdd = "";
+        String nameToAdd = " | ";
         for (Suggestions suggestions: plant.getSuggestions()
              ) {
        nameToAdd = (nameToAdd.concat(suggestions.getPlant_name()).concat(" | "));

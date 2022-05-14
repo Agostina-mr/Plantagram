@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.agostina.mr.plantagram2.model.post.PlantPost;
 import com.agostina.mr.plantagram2.model.post.Comment;
+import com.agostina.mr.plantagram2.utilities.Helper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,13 +41,15 @@ public class PlantFirebaseRepository {
     }
 
     public void savePlantFirebase(PlantPost plantPost) {
+        String plantPostId = Helper.postKeyGenerator(userName);
         plantPost.setAuthorsId(userUid);
-        myRef.child("posts").child(userUid).push().setValue(plantPost);
+        plantPost.setPostId(plantPostId);
+        myRef.child("posts").child(userUid).child(plantPostId).setValue(plantPost);
     }
 
     public Query getAllPostsQuery() {
         //this method is called by the view model, then the view model is called in the fragment to create the adapter
-        Query query = myRef.child("posts");
+        Query query = myRef.child("posts").orderByKey();
         return query;
     }
 
@@ -78,6 +81,7 @@ public class PlantFirebaseRepository {
     public void updateComments(PlantPost plantPost, String comment) {
         Comment newComment = new Comment(userUid,userName, comment);
         plantPost.getComments().add(newComment);
+        System.out.println(plantPost.getPostId());
         myRef.child("posts").child(plantPost.getAuthorsId()).child(plantPost.getPostId()).setValue(plantPost);
 
     }
