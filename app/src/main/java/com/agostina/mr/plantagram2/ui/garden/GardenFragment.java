@@ -33,7 +33,16 @@ public class GardenFragment extends Fragment {
         binding = FragmentGardenBinding.inflate(inflater,container,false);
         View root = binding.getRoot();
         recyclerView = root.findViewById(R.id.recycler_view);
-        options = new FirebaseRecyclerOptions.Builder<PlantPost>().setQuery(viewModel.getSpecificQuery(), PlantPost.class).setLifecycleOwner(this).build();
+        options = new FirebaseRecyclerOptions.Builder<PlantPost>().setQuery(viewModel.getSpecificQuery(),
+                snapshot -> {
+            PlantPost plantPost= new PlantPost();
+            plantPost = snapshot.getValue(PlantPost.class);
+                    if (plantPost != null) {
+                        plantPost.setStorageReference(viewModel.getUserProfilePath(plantPost.getAuthorsId()));
+                    }
+                    return plantPost;
+                }
+         ).setLifecycleOwner(this).build();
         adapter = new GardenPlantAdapter(options);
 
         adapter.setOnClickListener(plantPost -> {
