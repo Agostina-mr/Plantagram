@@ -4,8 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.agostina.mr.plantagram2.model.post.PlantPost;
 import com.agostina.mr.plantagram2.model.post.Comment;
+import com.agostina.mr.plantagram2.model.post.PlantPost;
 import com.agostina.mr.plantagram2.utilities.Helper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,6 +21,7 @@ public class PlantFirebaseRepository {
     private String userUid;
     private String userName;
     private final MutableLiveData<PlantPost> specificPost;
+    private String userUri;
 
     private PlantFirebaseRepository() {
         firebaseDatabase = FirebaseDatabase.getInstance("https://plantagram-7693c-default-rtdb.europe-west1.firebasedatabase.app/");
@@ -40,16 +41,17 @@ public class PlantFirebaseRepository {
         myRef = firebaseDatabase.getReference();
     }
 
-    public void savePlantFirebase(PlantPost plantPost) {
+    public void savePlantFirebase(PlantPost plantPost) throws Exception {
         String plantPostId = Helper.postKeyGenerator(userName);
         plantPost.setAuthorsId(userUid);
         plantPost.setPostId(plantPostId);
+        plantPost.setTimeStamp(Helper.getTimeStamp());
         myRef.child("posts").child(userUid).child(plantPostId).setValue(plantPost);
     }
 
     public Query getAllPostsQuery() {
         //this method is called by the view model, then the view model is called in the fragment to create the adapter
-        Query query = myRef.child("posts").orderByKey();
+        Query query = myRef.child("posts").orderByChild("timeStamp");
         return query;
     }
 
@@ -57,7 +59,7 @@ public class PlantFirebaseRepository {
 
 
     public void updateLikes(PlantPost plantPost) {
-
+        plantPost.setStorageReference(null);
         myRef.child("posts").child(plantPost.getAuthorsId()).child(plantPost.getPostId()).setValue(plantPost);
     }
 
@@ -79,6 +81,7 @@ public class PlantFirebaseRepository {
     }
 
     public void updateComments(PlantPost plantPost, String comment) {
+        plantPost.setStorageReference(null);
         Comment newComment = new Comment(userUid,userName, comment);
         plantPost.getComments().add(newComment);
         System.out.println(plantPost.getPostId());

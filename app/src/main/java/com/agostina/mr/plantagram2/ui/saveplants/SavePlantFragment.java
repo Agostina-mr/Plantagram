@@ -18,14 +18,13 @@ import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.databinding.FragmentSavePlantBinding;
 import com.agostina.mr.plantagram2.model.plants.Images;
 import com.agostina.mr.plantagram2.model.plants.Plant;
-import com.agostina.mr.plantagram2.model.post.PlantPost;
 import com.agostina.mr.plantagram2.model.plants.Suggestions;
+import com.agostina.mr.plantagram2.model.post.PlantPost;
+import com.agostina.mr.plantagram2.utilities.Helper;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class SavePlantFragment extends Fragment {
 
@@ -55,8 +54,10 @@ public class SavePlantFragment extends Fragment {
         imagesRV = view.findViewById(R.id.plant_images_rv);
         suggestionsRV = view.findViewById(R.id.plant_suggestions_rv);
         viewModel.getIdentifiedPlant().observe(getViewLifecycleOwner(), plant -> {
-            images = plant.getImages();
-            suggestions = plant.getSuggestions();
+            if (plant !=null){
+                images = plant.getImages();
+                suggestions = plant.getSuggestions();
+            }
         });
         userInput = view.findViewById(R.id.plant_comment_input);
         setUpImagesRecyclerView(view);
@@ -89,31 +90,15 @@ public class SavePlantFragment extends Fragment {
 
     private void savePlant(View view) {
         Plant plant = viewModel.getIdentifiedPlant().getValue();
-        assert plant != null;
-        PlantPost plantPost = new PlantPost();
-        plantPost.setUserName(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName());
-        if (FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()!=null)
-        {
-            plantPost.setUserPicture(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()).toString());
-        }
-        String toAdd = plant.getImages().get(0).getUrl();
-        plantPost.setPicture(toAdd);
-        String nameToAdd = " | ";
-        for (Suggestions suggestions: plant.getSuggestions()
-             ) {
-       nameToAdd = (nameToAdd.concat(suggestions.getPlant_name()).concat(" | "));
-
-        }
-        plantPost.setPlantName(nameToAdd);
-        plantPost.setPlantDescription(plant.getSuggestions().get(0).getPlant_details().getWiki_description().getValue());
-        if (!Objects.requireNonNull(userInput.getText()).toString().equals("")) {
+        PlantPost plantPost = Helper.toPlantPost(plant);
+        if (!userInput.getText().toString().equals("") && userInput.getText() !=null) {
             String comment = userInput.getText().toString();
             assert plant != null;
             plantPost.setAuthorComment(comment);
         } else {
             userInput.getText();
         }
-        viewModel.savePlant(plantPost);
+            viewModel.savePlant(plantPost);
         Navigation.findNavController(view).navigate(R.id.plantagram_main_fragment);
     }
 }

@@ -9,6 +9,7 @@ public interface PlantIdApi {
    // @POST("identify")
     //mocky version
 
-@GET("hello")
+  // @POST("identify")
+   @GET("hello")
    Call<PlantResponse> getPlantIdentification(/*@Header("Api-Key") String api_key, @Body JsonObject data*/);
 }

@@ -8,9 +8,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.agostina.mr.plantagram2.model.post.PlantPost;
+import com.agostina.mr.plantagram2.repository.FirebaseStorageRepository;
 import com.agostina.mr.plantagram2.repository.PlantFirebaseRepository;
 import com.agostina.mr.plantagram2.repository.UserRepository;
 import com.google.firebase.database.Query;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -19,13 +21,14 @@ public class CommunityViewModel extends AndroidViewModel {
     private PlantFirebaseRepository plantFirebaseRepository;
     private UserRepository userRepository;
     private MutableLiveData<PlantPost> singlePlantPost;
+    private FirebaseStorageRepository storageRepository;
 
     public CommunityViewModel(@NonNull Application application) {
         super(application);
         plantFirebaseRepository = PlantFirebaseRepository.getInstance();
         userRepository = UserRepository.getInstance(application);
         singlePlantPost = new MutableLiveData<PlantPost>();
-
+        storageRepository = FirebaseStorageRepository.getInstance();
 
     }
 
@@ -71,6 +74,10 @@ public class CommunityViewModel extends AndroidViewModel {
 
     public void addComment(PlantPost plantPost, String comment) {
        plantFirebaseRepository.updateComments(plantPost, comment);
+
+    }
+    public StorageReference getUserProfilePath(String userUid){
+        return storageRepository.getStorageReference(userUid);
 
     }
 }

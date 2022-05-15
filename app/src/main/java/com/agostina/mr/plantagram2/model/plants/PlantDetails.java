@@ -15,6 +15,7 @@ public class PlantDetails {
     private WikiDescription wiki_description;
 
     public PlantDetails() {
+        wiki_description = new WikiDescription();
     }
 
     public List<String> getCommon_names() {

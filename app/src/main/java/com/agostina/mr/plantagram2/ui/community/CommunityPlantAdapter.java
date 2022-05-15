@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.model.post.PlantPost;
+import com.agostina.mr.plantagram2.utilities.GlideApp;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
@@ -35,7 +37,11 @@ public class CommunityPlantAdapter extends FirebaseRecyclerAdapter<PlantPost, Co
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull PlantPost model) {
         holder.name.setText(model.getUserName());
         holder.description.setText(model.getPlantDescription());
-        Glide.with(holder.context).load(model.getUserPicture()).into(holder.userImage);
+        GlideApp.with(holder.context)
+                .load(model.getStorageReference())
+                .diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true)
+                .into(holder.userImage);
+        System.out.println(model.getUserPicture());
         Glide.with(holder.context).load(model.getPicture()).override(600,600).into(holder.picture);
         holder.authorsComment.setText(model.getAuthorComment());
         holder.plantName.setText(model.getPlantName());

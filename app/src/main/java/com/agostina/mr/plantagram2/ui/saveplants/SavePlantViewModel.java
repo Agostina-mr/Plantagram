@@ -27,6 +27,10 @@ public class SavePlantViewModel extends AndroidViewModel {
     }
 
     public void savePlant(PlantPost plant) {
-        plantFirebaseRepository.savePlantFirebase(plant);
+        try {
+            plantFirebaseRepository.savePlantFirebase(plant);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

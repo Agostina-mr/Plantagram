@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.agostina.mr.plantagram2.BuildConfig;
 import com.agostina.mr.plantagram2.model.plants.Plant;
 import com.agostina.mr.plantagram2.model.responses.PlantResponse;
 import com.agostina.mr.plantagram2.network.PlantIdApi;
@@ -37,6 +38,7 @@ public class PlantRepository {
     private PlantDao plantDao;
     private UserDao userDao;
     private ExecutorService executorService;
+    private static final String API_KEY = BuildConfig.API_KEY;
 
     private PlantRepository(Application application) {
         PlantDatabase database = PlantDatabase.getInstance(application);
@@ -66,7 +68,7 @@ public class PlantRepository {
         PlantIdApi plantIdApi = ServiceGenerator.getPlantApi();
 
         JsonObject data = Helper.formatData(photoPath);
-        Call<PlantResponse> plantResponseCall = plantIdApi.getPlantIdentification(/*apiKey, data*/);
+        Call<PlantResponse> plantResponseCall = plantIdApi.getPlantIdentification(/*API_KEY, data*/);
         plantResponseCall.enqueue(new Callback<PlantResponse>() {
             @EverythingIsNonNull
             @Override

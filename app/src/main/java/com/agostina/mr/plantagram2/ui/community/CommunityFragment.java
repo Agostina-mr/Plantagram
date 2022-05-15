@@ -23,6 +23,7 @@ public class CommunityFragment extends Fragment {
     private CommunityViewModel viewModel;
     private CommunityPlantAdapter plantAdapter;
     private RecyclerView plantsRecyclerView;
+
     private FirebaseRecyclerOptions<PlantPost> options;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -37,6 +38,8 @@ public class CommunityFragment extends Fragment {
                             for (DataSnapshot ds : snapshot.getChildren()) {
                                 plantPost = ds.getValue(PlantPost.class);
                                 plantPost.setPostId(ds.getKey());
+                                System.out.println("KEY---------" + snapshot.getKey());
+                                plantPost.setStorageReference(viewModel.getUserProfilePath(snapshot.getKey()));
                                 plantPost.setViewBy(viewModel.getCurrentUser());
                             }
                             return plantPost;
@@ -58,8 +61,8 @@ public class CommunityFragment extends Fragment {
     private void setUpRV(View view) {
         plantsRecyclerView.hasFixedSize();
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
-      //  layoutManager.setReverseLayout(true);
-      //  layoutManager.setStackFromEnd(true);
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
         plantsRecyclerView.setLayoutManager(layoutManager);
         plantsRecyclerView.setAdapter(plantAdapter);
     }

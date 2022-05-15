@@ -34,8 +34,14 @@ public class SavePlantSuggestionsAdapter extends RecyclerView.Adapter<SavePlantS
 
     @Override
     public void onBindViewHolder(@NonNull SavePlantSuggestionsAdapter.ViewHolder holder, int position) {
-   holder.suggestionName.setText(suggestionsArrayList.get(position).getPlant_name());
-   holder.suggestionDescription.setText(suggestionsArrayList.get(position).getPlant_details().getWiki_description().getValue());
+   if (suggestionsArrayList !=null){
+       if (suggestionsArrayList.get(position).getPlant_name()!=null){
+           holder.suggestionName.setText(suggestionsArrayList.get(position).getPlant_name());
+       }
+       if (suggestionsArrayList.get(position).getPlant_details().getWiki_description().getValue()!=null){
+           holder.suggestionDescription.setText(suggestionsArrayList.get(position).getPlant_details().getWiki_description().getValue());
+       }
+   }
 
     }
 

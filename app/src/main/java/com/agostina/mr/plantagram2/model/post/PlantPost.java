@@ -1,5 +1,7 @@
 package com.agostina.mr.plantagram2.model.post;
 
+import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +14,8 @@ public class PlantPost {
     private String plantName;
     private String plantDescription;
     private String authorComment;
+    private long timeStamp;
+    private StorageReference storageReference;
     private List<Comment> comments;
     private List<String> likes;
     private String viewBy;
@@ -19,6 +23,22 @@ public class PlantPost {
     public PlantPost() {
         likes = new ArrayList<>();
         comments = new ArrayList<>();
+    }
+
+    public StorageReference getStorageReference() {
+        return storageReference;
+    }
+
+    public void setStorageReference(StorageReference storageReference) {
+        this.storageReference = storageReference;
+    }
+
+    public long getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
     public String getPostId() {

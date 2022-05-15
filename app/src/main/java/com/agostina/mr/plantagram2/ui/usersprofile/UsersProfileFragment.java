@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.agostina.mr.plantagram2.R;
 import com.agostina.mr.plantagram2.databinding.FragmentUsersProfileBinding;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseUser;
 
 public class UsersProfileFragment extends Fragment {
 
@@ -27,7 +28,7 @@ public class UsersProfileFragment extends Fragment {
     private UsersProfileViewModel viewModel;
     private ImageView userProfileImage;
     private Uri uri = null;
-
+    private FirebaseUser userLiveData;
 
 
     @Nullable
@@ -40,19 +41,23 @@ public class UsersProfileFragment extends Fragment {
         EditText userName = root.findViewById(R.id.users_profile_name);
         Button changeProfile = root.findViewById(R.id.change_profile);
 
+
         viewModel.getCurrentUser().observe(getViewLifecycleOwner(), firebaseUser -> {
             userName.setText(firebaseUser.getDisplayName());
             if (uri==null){
                 Glide.with(this).load(firebaseUser.getPhotoUrl())
                         .into(userProfileImage);
             }
-
+            this.userLiveData = firebaseUser;
         });
 
 
         changeProfile.setOnClickListener(view -> {
             String newUserName = userName.getText().toString();
             changeProfile(uri, newUserName ) ;
+
+            viewModel.setProfilePictureToFB(uri,  userLiveData.getUid() );
+
         });
 
 
