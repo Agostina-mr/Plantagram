@@ -68,7 +68,7 @@ public class PlantRepository {
         PlantIdApi plantIdApi = ServiceGenerator.getPlantApi();
 
         JsonObject data = Helper.formatData(photoPath);
-        Call<PlantResponse> plantResponseCall = plantIdApi.getPlantIdentification(/*API_KEY, data*/);
+        Call<PlantResponse> plantResponseCall = plantIdApi.getPlantIdentification(API_KEY, data);
         plantResponseCall.enqueue(new Callback<PlantResponse>() {
             @EverythingIsNonNull
             @Override
@@ -77,7 +77,6 @@ public class PlantRepository {
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         identifiedPlant.setValue(response.body().getPlant());
-
                     }
                 }
             }

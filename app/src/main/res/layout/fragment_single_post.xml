@@ -8,27 +8,26 @@
 
     <LinearLayout
         android:id="@+id/linear_layout1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="4dp">
-        <!--circle image for displaying the user image-->
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/user_image1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="5dp"
-            />
-        <!--text view for displaying user name-->
+
         <TextView
             android:id="@+id/name1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="3dp"
             android:padding="3dp"
             android:textStyle="bold"
             />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/plant_name_singlepost"
+            />
+
     </LinearLayout>
 
     <!--image view to display the post image-->

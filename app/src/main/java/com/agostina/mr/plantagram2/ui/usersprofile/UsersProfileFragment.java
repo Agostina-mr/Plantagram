@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -86,5 +87,6 @@ public class UsersProfileFragment extends Fragment {
     private void changeProfile(Uri uri, String userName)
     {
       viewModel.setProfilePicture(uri,userName);
+        Toast.makeText(this.getContext(), "Your profile has been updated", Toast.LENGTH_SHORT).show();
     }
 }

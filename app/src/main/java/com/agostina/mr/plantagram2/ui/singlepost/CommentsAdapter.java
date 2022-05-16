@@ -1,5 +1,6 @@
 package com.agostina.mr.plantagram2.ui.singlepost;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +32,10 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-      holder.author.setText(commentList.get(position).getCommentsAuthorName());
+      holder.author.setText("@"+commentList.get(position).getCommentsAuthorName());
       holder.comment.setText(commentList.get(position).getBody());
     }
 

@@ -1,5 +1,6 @@
 package com.agostina.mr.plantagram2.ui.singlepost;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,8 +39,10 @@ public class SinglePostFragment extends Fragment {
     private TextView commentsCount;
     private TextInputEditText inputLayout;
     private Button sendCommentButton;
+    private TextView plantName;
 
 
+    @SuppressLint("SetTextI18n")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,19 +53,19 @@ public class SinglePostFragment extends Fragment {
 
         name = root.findViewById(R.id.name1);
         picture = root.findViewById(R.id.image1);
-        userImage = root.findViewById(R.id.user_image1);
         commentsCount = root.findViewById(R.id.comments_count1);
         inputLayout = root.findViewById(R.id.comment_users_input);
         sendCommentButton = root.findViewById(R.id.sent_comment_button);
         commentsRecyclerView = root.findViewById(R.id.comments_recycler_view1);
-        commentsCount.setText(R.string.comments);
+        plantName = root.findViewById(R.id.plant_name_singlepost);
 
 
         viewModel.getSinglePlantPost().observe(getViewLifecycleOwner(), plantPost1 -> {
             this.plantPost = plantPost1;
-            name.setText(plantPost.getUserName());
+            name.setText("@"+plantPost.getUserName());
             Glide.with(this).load(plantPost.getPicture()).override(600, 600).into(picture);
-            Glide.with(this).load(plantPost.getUserPicture()).into(userImage);
+            commentsCount.setText(R.string.comments);
+
 
 
             setUpImagesRecyclerView(root, plantPost1.getComments());
