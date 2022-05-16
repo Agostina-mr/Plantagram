@@ -61,8 +61,8 @@ public class CommunityFragment extends Fragment {
     private void setUpRV(View view) {
         plantsRecyclerView.hasFixedSize();
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
+       // layoutManager.setReverseLayout(true);
+       // layoutManager.setStackFromEnd(true);
         plantsRecyclerView.setLayoutManager(layoutManager);
         plantsRecyclerView.setAdapter(plantAdapter);
     }
